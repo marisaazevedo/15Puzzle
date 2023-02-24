@@ -1,19 +1,5 @@
-def solvability(a):
-
-    line = 4
-    inv = 0
-    blankRow = 0
-
-    for i in range (0,16):
-        for j in range(i + 1, 16):
-            if(a[j] < a[i] and a[j] != 0):
-                inv += 1
-        if(a[i] == 0):
-            blankRow = line
-        if((i + 1) % 4 == 0):
-            line -= 1
-    print ("inversoes:%d, blankrow:%d" %(inv,blankRow))
-    return (inv % 2 == 0) == (blankRow % 2 == 1)
+from solvability import solvability
+from functions import dfs, bfs, ids, g, a
 
 def main():
 
@@ -21,7 +7,12 @@ def main():
     final = list(map(int,input().split()))
 
     if solvability(initial) == solvability(final):
-        print (True)
+        print("Depth-First-Search: ", dfs(initial,final))
+        print("Breadth-First-Search: ", bfs(initial,final))
+        print("Iterative-Deepening-Search: ", ids(initial,final))
+        print("Greedy: ", g(initial,final))
+        print("A*: ", a(initial,final))
+
     else:
         print("Não existe caminho entre a configuração final e a configuração inicial.")
 
