@@ -12,5 +12,5 @@ def solvability(a):
             blankRow = line
         if((i + 1) % 4 == 0):
             line -= 1
-    print ("inversoes:%d, blankrow:%d" %(inv,blankRow))
+    print ("inversions:%d, blankrow:%d" %(inv,blankRow))
     return (inv % 2 == 0) == (blankRow % 2 == 1)

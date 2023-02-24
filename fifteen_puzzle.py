@@ -1,5 +1,6 @@
 from solvability import solvability
 from functions import dfs, bfs, ids, g, a
+from tabuleiro import puzzle
 
 def main():
 
@@ -12,8 +13,13 @@ def main():
         print("Iterative-Deepening-Search: ", ids(initial,final))
         print("Greedy: ", g(initial,final))
         print("A*: ", a(initial,final))
-
     else:
-        print("Não existe caminho entre a configuração final e a configuração inicial.")
+        print("There is no path between the final configuration and the initial configuration.")
+
+    # configurações dadas em formato de tabuleiro
+    print("Initial Configuration:")
+    print(puzzle(initial))
+    print("Final Configuration:")
+    print(puzzle(final))
 
 main()
