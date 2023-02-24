@@ -1,6 +1,3 @@
-#inversões:sempre que um nº aparece anyes de outro numero e em relacao À sua posicao na matriz
-# se o numero de inversoes for par, o numero de linhas ate ao espaco branco,a contar debaixo tem que ser impar
-
 def solvability(a):
 
     line = 4
