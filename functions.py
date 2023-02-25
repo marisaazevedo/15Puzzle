@@ -2,20 +2,20 @@ from auxFunctions import Puzzle
 
 from collections import deque
 
-def dfs(root: list[int], final: list[int]) -> Puzzle:
-    stack = deque()
-    stack.append(Puzzle(root))
-    visited = set()
+def dfs(root: list[int], final: list[int]) -> Puzzle: #retornar a configuracao ou seja o puzzle??
+    stack = deque() #criar uma pilha  
+    stack.append(Puzzle(root)) # adicionar a matriz atual a pilha
+    visited = set() # criar um tuplo para as matrizes visitadas 
 
-    while len(stack):
-        puzzle = stack.pop()
-        print(puzzle.array, len(visited))
+    while len(stack):   
+        puzzle = stack.pop() # atribuir à variável puzzle o último elemento da pilha
+        #print(puzzle.array, len(visited))
 
-        if tuple(puzzle.array) in visited:
+        if tuple(puzzle.array) in visited: #verificar se puzzle já visitamos
             continue
         visited.add(tuple(puzzle.array))
 
-        if puzzle.array == final:
+        if puzzle.array == final: #comparar a configuração atual com a pretendida
             return puzzle
 
         stack.append(Puzzle(puzzle.left(), depth = puzzle.depth + 1))
@@ -26,11 +26,19 @@ def dfs(root: list[int], final: list[int]) -> Puzzle:
     raise Exception("Puzzle cannot be solved")
 
 def bfs(i,f):
-    # queue = deque()
-    # queue.append(i)
-    # while(len(queue) > 0):
-    #     node = queue.popleft()
-    #     if node
+    queue = deque()
+    queue.append(i)
+    while(len(queue) > 0):
+        node = queue.popleft()
+        if node == f:
+            return node
+        
+        queue.append(Puzzle(puzzle.left(), depth = puzzle.depth + 1))
+        queue.append(Puzzle(puzzle.right(), depth = puzzle.depth + 1))
+        queue.append(Puzzle(puzzle.up(), depth = puzzle.depth + 1))
+        queue.append(Puzzle(puzzle.down(), depth = puzzle.depth + 1))
+    
+
     return 0
 
 def ids(i,f):
