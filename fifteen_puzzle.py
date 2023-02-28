@@ -1,6 +1,7 @@
 from solvability import solvability
 from functions import dfs, bfs, ids, g, a
 from tabuleiro import puzzle
+import time
 
 def main():
 
@@ -8,7 +9,10 @@ def main():
     final = list(map(int, input().split()))
 
     if solvability(initial) == solvability(final):
-        print("Depth-First-Search: ", dfs(initial, final))
+        start = time.time()
+        print("Depth-First-Search: %d passos" %dfs(initial, final))
+        end = time.time()
+        print("time = %f segundos" %(end - start))
         #print("Breadth-First-Search: ", bfs(initial, final))
         #print("Iterative-Deepening-Search: ", ids(initial, final))
         #print("Greedy: ", g(initial,final))

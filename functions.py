@@ -42,7 +42,6 @@ def bfs(i,f):
         #queue.append(Puzzle(puzzle.up(), depth = puzzle.depth + 1))
         #queue.append(Puzzle(puzzle.down(), depth = puzzle.depth + 1))
 
-
     return 0
 
 def ids(i,f):
