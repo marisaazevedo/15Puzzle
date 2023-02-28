@@ -17,13 +17,14 @@ def dfs(root: list[int], final: list[int]) -> Puzzle: #retornar a configuracao o
 
         if puzzle.array == final: #comparar a configuração atual com a pretendida
             return puzzle.depth
-        if(tuple(puzzle.left())not in visited):
+
+        if tuple(puzzle.left())not in visited:
             stack.append(Puzzle(puzzle.left(), depth = puzzle.depth + 1))
-        if(tuple(puzzle.right())not in visited):
+        if tuple(puzzle.right())not in visited:
             stack.append(Puzzle(puzzle.right(), depth = puzzle.depth + 1))
-        if(tuple(puzzle.up())not in visited):
+        if tuple(puzzle.up())not in visited:
             stack.append(Puzzle(puzzle.up(), depth = puzzle.depth + 1))
-        if(tuple(puzzle.down())not in visited):
+        if tuple(puzzle.down())not in visited:
             stack.append(Puzzle(puzzle.down(), depth = puzzle.depth + 1))
 
     raise Exception("Puzzle cannot be solved")
