@@ -9,17 +9,17 @@ def main():
 
     if solvability(initial) == solvability(final):
         print("Depth-First-Search: ", dfs(initial, final))
-        print("Breadth-First-Search: ", bfs(initial, final))
-        print("Iterative-Deepening-Search: ", ids(initial, final))
-        print("Greedy: ", g(initial,final))
-        print("A*: ", a(initial,final))
+        #print("Breadth-First-Search: ", bfs(initial, final))
+        #print("Iterative-Deepening-Search: ", ids(initial, final))
+        #print("Greedy: ", g(initial,final))
+        #print("A*: ", a(initial,final))
     else:
         print("There is no path between the final configuration and the initial configuration.")
 
     # configurações dadas em formato de tabuleiro
-    print("Initial Configuration:")
-    print(puzzle(initial))
-    print("Final Configuration:")
-    print(puzzle(final))
+    #print("Initial Configuration:")
+    #print(puzzle(initial))
+    #print("Final Configuration:")
+    #print(puzzle(final))
 
 main()

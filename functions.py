@@ -3,41 +3,44 @@ from auxFunctions import Puzzle
 from collections import deque
 
 def dfs(root: list[int], final: list[int]) -> Puzzle: #retornar a configuracao ou seja o puzzle??
-    stack = deque() #criar uma pilha  
+    stack = deque() #criar uma pilha
     stack.append(Puzzle(root)) # adicionar a matriz atual a pilha
-    visited = set() # criar um tuplo para as matrizes visitadas 
+    visited = set() # criar um tuplo para as matrizes visitadas
 
-    while len(stack):   
+    while len(stack):
         puzzle = stack.pop() # atribuir à variável puzzle o último elemento da pilha
-        #print(puzzle.array, len(visited))
+        print(puzzle.array, len(visited))
 
         if tuple(puzzle.array) in visited: #verificar se puzzle já visitamos
             continue
         visited.add(tuple(puzzle.array))
 
         if puzzle.array == final: #comparar a configuração atual com a pretendida
-            return puzzle
-
-        stack.append(Puzzle(puzzle.left(), depth = puzzle.depth + 1))
-        stack.append(Puzzle(puzzle.right(), depth = puzzle.depth + 1))
-        stack.append(Puzzle(puzzle.up(), depth = puzzle.depth + 1))
-        stack.append(Puzzle(puzzle.down(), depth = puzzle.depth + 1))
+            return puzzle.depth
+        if(tuple(puzzle.left())not in visited):
+            stack.append(Puzzle(puzzle.left(), depth = puzzle.depth + 1))
+        if(tuple(puzzle.right())not in visited):
+            stack.append(Puzzle(puzzle.right(), depth = puzzle.depth + 1))
+        if(tuple(puzzle.up())not in visited):
+            stack.append(Puzzle(puzzle.up(), depth = puzzle.depth + 1))
+        if(tuple(puzzle.down())not in visited):
+            stack.append(Puzzle(puzzle.down(), depth = puzzle.depth + 1))
 
     raise Exception("Puzzle cannot be solved")
 
 def bfs(i,f):
-    queue = deque()
-    queue.append(i)
-    while(len(queue) > 0):
-        node = queue.popleft()
-        if node == f:
-            return node
-        
-        queue.append(Puzzle(puzzle.left(), depth = puzzle.depth + 1))
-        queue.append(Puzzle(puzzle.right(), depth = puzzle.depth + 1))
-        queue.append(Puzzle(puzzle.up(), depth = puzzle.depth + 1))
-        queue.append(Puzzle(puzzle.down(), depth = puzzle.depth + 1))
-    
+    #queue = deque()
+    #queue.append(i)
+    #while(len(queue) > 0):
+     #   node = queue.popleft()
+      #  if node == f:
+       #     return node
+
+        #queue.append(Puzzle(puzzle.left(), depth = puzzle.depth + 1))
+        #queue.append(Puzzle(puzzle.right(), depth = puzzle.depth + 1))
+        #queue.append(Puzzle(puzzle.up(), depth = puzzle.depth + 1))
+        #queue.append(Puzzle(puzzle.down(), depth = puzzle.depth + 1))
+
 
     return 0
 
