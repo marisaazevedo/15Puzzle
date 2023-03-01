@@ -1,5 +1,4 @@
 from auxFunctions import Puzzle
-
 from collections import deque
 
 def dfs(root: list[int], final: list[int]) -> Puzzle: #retornar a configuracao ou seja o puzzle??
@@ -29,20 +28,32 @@ def dfs(root: list[int], final: list[int]) -> Puzzle: #retornar a configuracao o
 
     raise Exception("Puzzle cannot be solved")
 
-def bfs(i,f):
+def bfs(root: list[int], final: list[int]):
     queue = deque()
-    queue.append(i)
-    while(len(queue) > 0):
-        node = queue.popleft()
-        if node == f:
-            return node
+    queue.append(Puzzle(root))
+    visited = set()
 
-        queue.append(Puzzle(puzzle.left(), depth = puzzle.depth + 1))
-        queue.append(Puzzle(puzzle.right(), depth = puzzle.depth + 1))
-        queue.append(Puzzle(puzzle.up(), depth = puzzle.depth + 1))
-        queue.append(Puzzle(puzzle.down(), depth = puzzle.depth + 1))
+    while len(queue):
+        puzzle = queue.popleft() # atribuir à variável puzzle o último elemento da pilha
+        print(puzzle.array, len(visited))
 
-    return 0
+        if tuple(puzzle.array) in visited: #verificar se puzzle já visitamos
+            continue
+        visited.add(tuple(puzzle.array))
+
+        if puzzle.array == final: #comparar a configuração atual com a pretendida
+            return puzzle.depth
+
+        if tuple(puzzle.left())not in visited:
+            queue.append(Puzzle(puzzle.left(), depth = puzzle.depth + 1))
+        if tuple(puzzle.right())not in visited:
+            queue.append(Puzzle(puzzle.right(), depth = puzzle.depth + 1))
+        if tuple(puzzle.up())not in visited:
+            queue.append(Puzzle(puzzle.up(), depth = puzzle.depth + 1))
+        if tuple(puzzle.down())not in visited:
+            queue.append(Puzzle(puzzle.down(), depth = puzzle.depth + 1))
+
+    raise Exception("Puzzle cannot be solved")
 
 def ids(i,f):
     return 0

@@ -17,8 +17,11 @@ def main():
             print("time = %f segundos" %(end - start))
             print("memory = ...")
         elif(method) == "bfs":
-            # print("Breadth-First-Search: ", bfs(initial, final))
-            print("não está implementado")
+            start = time.time()
+            print("Breadth-First-Search: ", bfs(initial, final))
+            end = time.time()
+            print("time = %f segundos" %(end - start))
+            print("memory = ...")
         elif(method) == "ids":
             # print("Iterative-Deepening-Search: ", ids(initial, final))
             print("não está implementado")
