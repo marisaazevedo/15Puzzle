@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
-public class FifteenPuzzle {
+public class nuno {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
