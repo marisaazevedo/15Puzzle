@@ -32,9 +32,9 @@ def main():
         print("There is no path between the final configuration and the initial configuration.")
 
     # configurações dadas em formato de tabuleiro
-    print("Initial Configuration:")
-    print(puzzle(initial))
-    print("Final Configuration:")
-    print(puzzle(final))
+    # print("Initial Configuration:")
+    # print(puzzle(initial))
+    # print("Final Configuration:")
+    # print(puzzle(final))
 
 main()
