@@ -1,5 +1,5 @@
 from solvability import solvability
-from functions import dfs, bfs, ids, g, a
+from functions import dfs, bfs, ids, greedy, aStar
 from tabuleiro import puzzle
 import time
 

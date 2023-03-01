@@ -58,10 +58,10 @@ def bfs(root: list[int], final: list[int]):
 def ids(i,f):
     return 0
 
-def a(i,f):
+def aStar(i,f):
     return 0
 
-def g(i,f):
+def greedy(i,f):
     return 0
 
 ##1: GeneralSearchAlgorithm(QueueingFunction,configInicial,configFinal)
