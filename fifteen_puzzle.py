@@ -7,10 +7,9 @@ def main():
 
     initial = list(map(int, input().split()))
     final = list(map(int, input().split()))
-    method = int(input())
 
     if solvability(initial) == solvability(final):
-        method = int(input())
+        method = str(input())
         if(method) == "dfs":
             start = time.time()
             print("Depth-First-Search: %d passos" %dfs(initial, final))
