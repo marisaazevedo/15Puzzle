@@ -1,8 +1,16 @@
 def puzzle(t):
-    tabuleiro = []
-    for i in range(0,16,4):
-        l = []
-        for j in range(i,i+4):
-            l.append(t[j])
-        tabuleiro.append(l)
-    return tabuleiro
+    count = 1
+    linha = "|"
+    print(" ____ ____ ____ ____ ")
+
+    for i in range(16):
+        if t[i] <= 9:
+            linha += " %d  |" %t[i]
+        elif t[i >= 10]:
+            linha += " %d |" %t[i]
+        if count == 4:
+            print(linha)
+            print(" ____ ____ ____ ____ ")
+            count = 0
+            linha = "|"
+        count += 1
