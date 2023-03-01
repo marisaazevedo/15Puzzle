@@ -30,14 +30,14 @@ def dfs(root: list[int], final: list[int]) -> Puzzle: #retornar a configuracao o
     raise Exception("Puzzle cannot be solved")
 
 def bfs(i,f):
-    #queue = deque()
-    #queue.append(i)
-    #while(len(queue) > 0):
-     #   node = queue.popleft()
-      #  if node == f:
-       #     return node
+    queue = deque()
+    queue.append(i)
+    while(len(queue) > 0):
+        node = queue.popleft()
+        if node == f:
+            return node
 
-        #queue.append(Puzzle(puzzle.left(), depth = puzzle.depth + 1))
+        queue.append(Puzzle(puzzle.left(), depth = puzzle.depth + 1))
         #queue.append(Puzzle(puzzle.right(), depth = puzzle.depth + 1))
         #queue.append(Puzzle(puzzle.up(), depth = puzzle.depth + 1))
         #queue.append(Puzzle(puzzle.down(), depth = puzzle.depth + 1))
