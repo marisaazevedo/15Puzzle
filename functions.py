@@ -1,6 +1,6 @@
 from auxFunctions import Puzzle
 from collections import deque
-from sys import getsizeof
+import sys 
 
 def dfs(root: list[int], final: list[int]) -> Puzzle:
     stack = deque()                         # criar uma pilha
