@@ -47,6 +47,7 @@ def bfs(root: list[int], final: list[int]):
         visited.add(tuple(puzzle.array))
 
         if puzzle.array == final:               # verificar se a configuração atual é igual à configuracao final
+            print(mem)
             return puzzle.depth                 # retorna o números passos para chegar da configuracao inicial à final
 
         if tuple(puzzle.left())not in visited:
