@@ -21,29 +21,21 @@ class Puzzle:
 
     def right(self):
         move = copy.deepcopy(self.array)
-        if self.blank % 4 != 3:                   #
+        if self.blank % 4 != 3:
             move[self.blank] = move[self.blank + 1]
             move[self.blank + 1] = 0
         return move
 
     def up(self):
         move = copy.deepcopy(self.array)
-        if self.blank > 3:                 #  
+        if self.blank > 3:
             move[self.blank] = move[self.blank - 4]
             move[self.blank - 4] = 0
         return move
 
     def down(self):
         move = copy.deepcopy(self.array)
-        if self.blank < 12:             #4*3
+        if self.blank < 12:
             move[self.blank] = move[self.blank + 4]
             move[self.blank + 4] = 0
         return move
-
-
-#        0  1  2  3
-
-#    0   0  1  2  3
-#    1   4  5  6  7
-#    2   8  9  10 11
-#    3   12 13 14 15
