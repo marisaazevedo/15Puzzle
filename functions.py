@@ -55,7 +55,7 @@ def bfs(root: list[int], final: list[int]):
 
     raise Exception("Puzzle cannot be solved")
 
-def ids(i,f):
+def idfs(i,f):
     return 0
 
 def aStar_misplaced(i,f):

@@ -1,5 +1,5 @@
 from solvability import solvability
-from functions import dfs, bfs, ids, greedy_manhattan, greedy_misplaced, aStar_manhattan, aStar_misplaced
+from functions import dfs, bfs, idfs, greedy_manhattan, greedy_misplaced, aStar_manhattan, aStar_misplaced
 from tabuleiro import puzzle
 import time
 
@@ -22,8 +22,8 @@ def main():
             end = time.time()
             print("time = %f segundos" %(end - start))
             print("memory = ...")
-        elif(method) == "ids":
-            # print("Iterative-Deepening-Search: ", ids(initial, final))
+        elif(method) == "idfs":
+            # print("Iterative-Deepening-Depth-First-Search: ", ids(initial, final))
             print("não está implementado")
         elif(method) == "greedy misplaced":
             # print("Greedy: ", greedy_misplaced(initial,final))
