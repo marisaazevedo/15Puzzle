@@ -1,5 +1,6 @@
 from auxFunctions import Puzzle
 from collections import deque
+import sys
 
 def dfs(root: list[int], final: list[int]) -> Puzzle:
     stack = deque()                         # criar uma pilha
@@ -55,8 +56,39 @@ def bfs(root: list[int], final: list[int]):
 
     raise Exception("Puzzle cannot be solved")
 
-def idfs(i,f):
-    return 0
+def idfs(root: list[int], final: list[int]) -> Puzzle:
+    max_depth = 0
+    while True:
+        stack = deque()                             # criar uma pilha
+        stack.append(Puzzle(root))                  # adicionar a configuracao atual à pilha
+        visited = set()                             # criar uma lista com apenas as configuracoes visitadas
+
+        while len(stack):
+            puzzle = stack.pop()                    # atribuir à variável puzzle o último elemento da pilha e retira-o da pilha
+            print(puzzle.array, len(visited))
+
+            if tuple(puzzle.array) in visited:      # verificar se configuracao atual já foi visitada
+                continue
+            visited.add(tuple(puzzle.array))
+
+            if puzzle.array == final:               # verificar se a configuração atual é igual à configuracao final
+                return puzzle.depth                 # retorna o números passos para chegar da configuracao inicial à final
+
+            if puzzle.depth < max_depth:
+                if tuple(puzzle.left())not in visited:
+                    stack.append(Puzzle(puzzle.left(), depth = puzzle.depth + 1))
+                if tuple(puzzle.right())not in visited:
+                    stack.append(Puzzle(puzzle.right(), depth = puzzle.depth + 1))
+                if tuple(puzzle.up())not in visited:
+                    stack.append(Puzzle(puzzle.up(), depth = puzzle.depth + 1))
+                if tuple(puzzle.down())not in visited:
+                    stack.append(Puzzle(puzzle.down(), depth = puzzle.depth + 1))
+
+        max_depth += 1
+        if max_depth > sys.maxsize:                 # numero arbitrario para limitar a profundidade
+            break
+
+    raise Exception("Puzzle cannot be solved")
 
 def aStar_misplaced(i,f):
     return 0

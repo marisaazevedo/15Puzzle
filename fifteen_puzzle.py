@@ -23,8 +23,11 @@ def main():
             print("time = %f segundos" %(end - start))
             print("memory = ...")
         elif(method) == "idfs":
-            # print("Iterative Deepening Depth First-Search: ", ids(initial, final))
-            print("não está implementado")
+            start = time.time()
+            print("Iterative Deepening Depth First Search: ", idfs(initial, final))
+            end = time.time()
+            print("time = %f segundos" %(end - start))
+            print("memory = ...")
         elif(method) == "greedy misplaced":
             # print("Greedy Misplaced: ", greedy_misplaced(initial,final))
             print("não está implementado")
