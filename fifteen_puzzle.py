@@ -12,30 +12,30 @@ def main():
         method = str(input())
         if(method) == "dfs":
             start = time.time()
-            print("Depth-First-Search: %d passos" %dfs(initial, final))
+            print("Depth First Search: %d passos" %dfs(initial, final))
             end = time.time()
             print("time = %f segundos" %(end - start))
             print("memory = ...")
         elif(method) == "bfs":
             start = time.time()
-            print("Breadth-First-Search: ", bfs(initial, final))
+            print("Breadth First Search: ", bfs(initial, final))
             end = time.time()
             print("time = %f segundos" %(end - start))
             print("memory = ...")
         elif(method) == "idfs":
-            # print("Iterative-Deepening-Depth-First-Search: ", ids(initial, final))
+            # print("Iterative Deepening Depth First-Search: ", ids(initial, final))
             print("não está implementado")
         elif(method) == "greedy misplaced":
-            # print("Greedy: ", greedy_misplaced(initial,final))
+            # print("Greedy Misplaced: ", greedy_misplaced(initial,final))
             print("não está implementado")
         elif(method) == "greedy manhattan":
-            # print("Greedy: ", greedy_manhattan(initial,final))
+            # print("Greedy Manhattan: ", greedy_manhattan(initial,final))
             print("não está implementado")
         elif(method) == "A* misplaced":
-            # print("A*: ", aStar_misplaced(initial,final))
+            # print("A* Misplaced: ", aStar_misplaced(initial,final))
             print("não está implementado")
         elif(method) == "A* manhattan":
-            # print("A*: ", aStar_manhattan(initial,final))
+            # print("A* Manhattan: ", aStar_manhattan(initial,final))
             print("não está implementado")
     else:
         print("There is no path between the final configuration and the initial configuration.")
