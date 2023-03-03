@@ -1,6 +1,6 @@
 from auxFunctions import Puzzle
 from collections import deque
-import sys 
+import sys
 
 def dfs(root: list[int], final: list[int]) -> Puzzle:
     stack = deque()                         # criar uma pilha
@@ -37,7 +37,7 @@ def bfs(root: list[int], final: list[int]):
     queue.append(Puzzle(root))                  # adicionar a configuracao atual à fila
     visited = set()                             # criar uma lista com apenas as configuracoes visitadas
     mem = 0
-    
+
     while len(queue):
         puzzle = queue.popleft()                # atribuir à variável puzzle o último elemento da pilha
         print(puzzle.array, len(visited))
