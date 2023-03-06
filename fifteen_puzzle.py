@@ -29,8 +29,10 @@ def main():
             print("time = %f segundos" %(end - start))
             print("memory = ...")
         elif(method) == "greedy misplaced":
-            # print("Greedy Misplaced: ", greedy_misplaced(initial,final))
-            print("não está implementado")
+            start = time.time()
+            print("Greedy Misplaced: ", greedy_misplaced(initial,final))
+            end = time.time()
+            print("time = %f segundos" %(end - start))
         elif(method) == "greedy manhattan":
             # print("Greedy Manhattan: ", greedy_manhattan(initial,final))
             print("não está implementado")

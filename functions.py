@@ -1,5 +1,6 @@
 from auxFunctions import Puzzle
 from collections import deque
+from typing import List
 import sys
 
 def dfs(root: list[int], final: list[int]) -> Puzzle:
@@ -99,14 +100,16 @@ def idfs(root: list[int], final: list[int]) -> Puzzle:
 
     raise Exception("Puzzle cannot be solved")
 
-def aStar_misplaced(i,f):
-    return 0
-def aStar_manhattan(i,f):
+def greedy_misplaced(root: list[int], final: list[int]) -> Puzzle:
     return 0
 
-def greedy_misplaced(i,f):
-    return 0
 def greedy_manhattan(i,f):
+    return 0
+
+def aStar_misplaced(i,f):
+    return 0
+
+def aStar_manhattan(i,f):
     return 0
 
 # 1: GeneralSearchAlgorithm(QueueingFunction,configInicial,configFinal)
