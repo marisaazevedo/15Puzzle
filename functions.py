@@ -1,7 +1,24 @@
 from auxFunctions import Puzzle
 from collections import deque
-from typing import List
+from queue import PriorityQueue
 import sys
+
+def misplacedTiles(puzzle, final):
+    count = 0
+    for i in range(16):
+        if puzzle[i] != 0 and puzzle[i] != final[i]:
+            count += 1
+    return count
+
+def manhattanDistance(puzzle, final):
+    distance = 0
+    for i in range(len(puzzle)):
+        if puzzle[i] != 0:
+            rowDist = abs(i//4 - (final.index(puzzle[i]))//4)
+            colDist = abs(i%4 - (final.index(puzzle[i]))%4)
+            distance += rowDist + colDist
+    return distance
+
 
 def dfs(root: list[int], final: list[int]) -> Puzzle:
     stack = deque()                         # criar uma pilha
@@ -101,10 +118,49 @@ def idfs(root: list[int], final: list[int]) -> Puzzle:
     raise Exception("Puzzle cannot be solved")
 
 def greedy_misplaced(root: list[int], final: list[int]) -> Puzzle:
-    return 0
+    visited = set()
+    q = PriorityQueue()
+    q.put(Puzzle(root), misplacedTiles(root, final))
 
-def greedy_manhattan(i,f):
-    return 0
+    while not q.empty():
+        current = q.get()
+        if current.array == final:
+            return current.depth
+        visited.add(tuple(current.array))
+
+    if tuple(current.left())not in visited:
+        q._put((Puzzle(current.left(), current.depth + 1)), (misplacedTiles(current.left(), final)))
+    if tuple(current.right())not in visited:
+        q._put((Puzzle(current.right(), current.depth + 1)), (misplacedTiles(current.right(), final)))
+    if tuple(current.up())not in visited:
+        q._put((Puzzle(current.up(), current.depth + 1), )(misplacedTiles(current.up(), final)))
+    if tuple(current.down())not in visited:
+        q._put((Puzzle(current.down(), current.depth + 1)), (misplacedTiles(current.down(), final)))
+
+    raise Exception("Puzzle cannot be solved")
+
+def greedy_manhattan(root: list[int], final: list[int]) -> Puzzle:
+    visited = set()
+    q = PriorityQueue()
+    q.put(Puzzle(root), manhattanDistance(root, final))
+
+    while not q.empty():
+        current = q.get()
+        if current.array == final:
+            return current.depth
+        visited.add(tuple(current.array))
+
+    if tuple(current.left())not in visited:
+        q.put(Puzzle(current.left(), current.depth + 1), (manhattanDistance(current.left(), final)))
+    if tuple(current.right())not in visited:
+        q.put(Puzzle(current.right(), current.depth + 1), (manhattanDistance(current.right(), final)))
+    if tuple(current.up())not in visited:
+        q.put(Puzzle(current.up(), current.depth + 1), (manhattanDistance(current.up(), final)))
+    if tuple(current.down())not in visited:
+        q.put(Puzzle(current.down(), current.depth + 1), (manhattanDistance(current.down(), final)))
+
+    raise Exception("Puzzle cannot be solved")
+
 
 def aStar_misplaced(i,f):
     return 0

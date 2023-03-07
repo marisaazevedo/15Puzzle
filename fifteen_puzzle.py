@@ -1,5 +1,5 @@
 from solvability import solvability
-from functions import dfs, bfs, idfs, greedy_manhattan, greedy_misplaced, aStar_manhattan, aStar_misplaced
+from functions import dfs, bfs, idfs, greedy_misplaced, greedy_manhattan, aStar_manhattan, aStar_misplaced
 from tabuleiro import puzzle
 import time
 
