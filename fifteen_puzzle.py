@@ -1,5 +1,5 @@
 from solvability import solvability
-from functions import dfs, bfs, idfs, greedy_misplaced, greedy_manhattan, aStar_manhattan, aStar_misplaced
+from functions import dfs, bfs, idfs, greedy_misplaced,  aStar_manhattan, aStar_misplaced #greedy_manhattan,
 from tabuleiro import puzzle
 import time
 
@@ -33,9 +33,9 @@ def main():
             print("Greedy Misplaced: ", greedy_misplaced(initial,final))
             end = time.time()
             print("time = %f segundos" %(end - start))
-        elif(method) == "greedy manhattan":
+        #elif(method) == "greedy manhattan":
             # print("Greedy Manhattan: ", greedy_manhattan(initial,final))
-            print("não está implementado")
+            #print("não está implementado")
         elif(method) == "A* misplaced":
             # print("A* Misplaced: ", aStar_misplaced(initial,final))
             print("não está implementado")
