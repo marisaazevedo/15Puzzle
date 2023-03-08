@@ -40,14 +40,14 @@ def dfs(root: list[int], final: list[int]) -> Puzzle:
             print(len(nodes))
             return puzzle.depth             # retorna o números passos para chegar da configuracao inicial à final
 
-        if tuple(puzzle.left())not in visited:
-            stack.append(Puzzle(puzzle.left(), depth = puzzle.depth + 1))
-        if tuple(puzzle.right())not in visited:
-            stack.append(Puzzle(puzzle.right(), depth = puzzle.depth + 1))
-        if tuple(puzzle.up())not in visited:
-            stack.append(Puzzle(puzzle.up(), depth = puzzle.depth + 1))
-        if tuple(puzzle.down())not in visited:
-            stack.append(Puzzle(puzzle.down(), depth = puzzle.depth + 1))
+        left = puzzle.left()
+        right = puzzle.right()
+        up = puzzle.up()
+        down = puzzle.down()
+
+        for p in [down,up,right,left]:
+            if tuple(p) not in visited:
+                stack.append(Puzzle(p, depth = puzzle.depth + 1))
 
     raise Exception("Puzzle cannot be solved")
 
@@ -59,7 +59,7 @@ def bfs(root: list[int], final: list[int]):
 
     while len(queue):
         puzzle = queue.popleft()                # atribuir à variável puzzle o último elemento da pilha
-        print(puzzle.array, len(visited))
+        #print(puzzle.array, len(visited))
 
         if tuple(puzzle.array) in visited:      # verificar se configuracao atual já foi visitada
             continue
@@ -69,20 +69,17 @@ def bfs(root: list[int], final: list[int]):
             print(mem)
             return puzzle.depth                 # retorna o números passos para chegar da configuracao inicial à final
 
-        if tuple(puzzle.left())not in visited:
-            queue.append(Puzzle(puzzle.left(), depth = puzzle.depth + 1))
-            mem +=1
-        if tuple(puzzle.right())not in visited:
-            queue.append(Puzzle(puzzle.right(), depth = puzzle.depth + 1))
-            mem +=1
-        if tuple(puzzle.up())not in visited:
-            queue.append(Puzzle(puzzle.up(), depth = puzzle.depth + 1))
-            mem +=1
-        if tuple(puzzle.down())not in visited:
-            queue.append(Puzzle(puzzle.down(), depth = puzzle.depth + 1))
-            mem +=1
+        left = puzzle.left()
+        right = puzzle.right()
+        up = puzzle.up()
+        down = puzzle.down()
 
-    raise Exception("Puzzle cannot be solved")
+        for p in [left,right,up,down]:
+            if tuple(p) not in visited:
+                queue.append(Puzzle(p, depth = puzzle.depth + 1))
+                mem += 1
+
+    raise Exception("Puzzle cannot be solved")    
 
 def idfs(root: list[int], final: list[int]) -> Puzzle:
     max_depth = 0
@@ -103,21 +100,21 @@ def idfs(root: list[int], final: list[int]) -> Puzzle:
                 return puzzle.depth                 # retorna o números passos para chegar da configuracao inicial à final
 
             if puzzle.depth < max_depth:
-                if tuple(puzzle.left())not in visited:
-                    stack.append(Puzzle(puzzle.left(), depth = puzzle.depth + 1))
-                if tuple(puzzle.right())not in visited:
-                    stack.append(Puzzle(puzzle.right(), depth = puzzle.depth + 1))
-                if tuple(puzzle.up())not in visited:
-                    stack.append(Puzzle(puzzle.up(), depth = puzzle.depth + 1))
-                if tuple(puzzle.down())not in visited:
-                    stack.append(Puzzle(puzzle.down(), depth = puzzle.depth + 1))
+                left = puzzle.left()
+                right = puzzle.right()
+                up = puzzle.up()
+                down = puzzle.down()
 
+                for p in [down,up,right,left]:
+                    if tuple(p) not in visited:
+                        stack.append(Puzzle(p, depth = puzzle.depth + 1))
         max_depth += 1
         if max_depth > sys.maxsize:                 # numero arbitrario para limitar a profundidade
             break
 
     raise Exception("Puzzle cannot be solved")
 '''
+                    
 def greedy_misplaced(root: list[int], final: list[int]) -> Puzzle:
     visited = set()
     q = PriorityQueue() # heapq
@@ -176,7 +173,7 @@ def greedy_manhattan(root: list[int], final: list[int]) -> Puzzle:
 
 '''
 def greedy_misplaced(root: list[int], final: list[int]) -> Puzzle:
-    h = misplacedTiles(root, final)   # calcula a heurística inicial
+    h = misplacedTiles(root, final)  # calcula a heurística inicial
     pq = PriorityQueue()                           # cria uma fila de prioridade vazia
     pq.put((h,Puzzle(root)))      # adiciona a configuração inicial à fila com a heurística calculada
 
