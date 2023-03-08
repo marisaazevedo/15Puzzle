@@ -209,10 +209,10 @@ def greedy_misplaced(root: list[int], final: list[int]) -> Puzzle:
 
 '''
 
-        # gera as configurações filhas
-        left_puzzle = Puzzle(puzzle.left(), depth = puzzle.depth + 1) 
-        right_puzzle = Puzzle(puzzle.right(), depth = puzzle.depth + 1) 
-        up_puzzle = Puzzle(puzzle.up(), depth = puzzle.depth + 1) 
+         # gera as configurações filhas
+        left_puzzle = Puzzle(puzzle.left(), depth = puzzle.depth + 1)
+        right_puzzle = Puzzle(puzzle.right(), depth = puzzle.depth + 1)
+        up_puzzle = Puzzle(puzzle.up(), depth = puzzle.depth + 1)
         down_puzzle = Puzzle(puzzle.down(), depth = puzzle.depth + 1)
 '''
 
