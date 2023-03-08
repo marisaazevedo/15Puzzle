@@ -173,18 +173,9 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
     while not pq.empty():
         _, puzzle = pq.get()  # obter o próximo estado na fila
 
-<<<<<<< HEAD
-         # gera as configurações filhas
-        left_puzzle = Puzzle(puzzle.left(), depth = puzzle.depth + 1)
-        right_puzzle = Puzzle(puzzle.right(), depth = puzzle.depth + 1)
-        up_puzzle = Puzzle(puzzle.up(), depth = puzzle.depth + 1)
-        down_puzzle = Puzzle(puzzle.down(), depth = puzzle.depth + 1)
-'''
-=======
         if tuple(puzzle.array) in visited:  # verificar se a configuração atual já foi visitada
             continue
         visited.add(tuple(puzzle.array))
->>>>>>> 4315d5fa6801a71496648f2af4c21a3cc7225353
 
         if puzzle.array == final:  # verificar se a configuração atual é igual à configuração final
             print(len(nodes))
