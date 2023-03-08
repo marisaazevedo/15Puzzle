@@ -6,8 +6,8 @@ class Puzzle:
         self.depth = depth
         self.blank = self.findBlankSpace()
 
-    #def __lt__(self, other):
-        #return self.h < other.h
+    def __lt__(self, other):
+        return self.array < other.array
 
     def findBlankSpace(self):
         i = 0
