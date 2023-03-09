@@ -7,11 +7,11 @@ import sys
 def misplacedTiles(puzzle, final):
     count = 0
     for i in range(16):
-        if puzzle[i] != final[i]:
+        if puzzle[i] != final[i]:       # and puzzle[i] != 0
             count += 1
     return count
 
-def manhattanDistance(puzzle, final):
+def manhattanDistance(puzzle, final): 
     distance = 0
     for i in range(len(puzzle)):
         if puzzle[i] != 0:
@@ -24,7 +24,7 @@ def dfs(root: list[int], final: list[int]) -> Puzzle:
 
     if(not(solvability(root) == solvability(final))):
         return "There is no path between the final configuration and the initial configuration."
-
+    
     stack = deque()                         # criar uma pilha
     stack.append(Puzzle(root))              # adicionar a configuracao atual à pilha
     visited = set()                         # criar uma lista com apenas as configuracoes visitadas
@@ -57,7 +57,7 @@ def bfs(root: list[int], final: list[int]):
 
     if(not(solvability(root) == solvability(final))):
         return "There is no path between the final configuration and the initial configuration."
-
+    
     queue = deque()                             # criar uma fila
     queue.append(Puzzle(root))                  # adicionar a configuracao atual à fila
     visited = set()                             # criar uma lista com apenas as configuracoes visitadas
@@ -85,13 +85,13 @@ def bfs(root: list[int], final: list[int]):
                 queue.append(Puzzle(p, depth = puzzle.depth + 1))
                 mem += 1
 
-    raise Exception("Puzzle cannot be solved")
+    raise Exception("Puzzle cannot be solved")    
 
 def idfs(root: list[int], final: list[int]) -> Puzzle:
 
     if(not(solvability(root) == solvability(final))):
         return "There is no path between the final configuration and the initial configuration."
-
+    
     max_depth = 0
     while True:
         stack = deque()                             # criar uma pilha
@@ -128,7 +128,7 @@ def greedy_manhattan(root: list[int], final: list[int]) -> Puzzle:
 
     if(not(solvability(root) == solvability(final))):
         return "There is no path between the final configuration and the initial configuration."
-
+    
     visited = set()
     q = PriorityQueue()
     q.put(Puzzle(root), manhattanDistance(root, final))
@@ -155,12 +155,12 @@ def greedy_misplaced(root: list[int], final: list[int]) -> Puzzle:
 
     if(not(solvability(root) == solvability(final))):
         return "There is no path between the final configuration and the initial configuration."
-
+    
     h = misplacedTiles(root, final)             # calcula a heurística inicial, ou seja, o numero de pecas fora do lugar de acordo com a configuração final
     pq = PriorityQueue()                        # cria uma fila de prioridade vazia
     pq.put((h,Puzzle(root)))                    # adiciona a configuração inicial à fila com a heurística calculada
     visited = set()                             # cria uma lista com apenas as configurações visitadas
-    nodes = deque()                             # cria
+    nodes = deque()                             # cria 
 
     while not pq.empty():
         _, puzzle = pq.get()                    # extrai a configuração com menor heurística da fila
@@ -173,13 +173,13 @@ def greedy_misplaced(root: list[int], final: list[int]) -> Puzzle:
         if puzzle.array == final:               # verifica se a configuração atual é igual à configuração final
             print(len(nodes))
             return puzzle.depth                 # retorna o número de passos para chegar da configuração inicial à final
-
+        
         left = puzzle.left()
         right = puzzle.right()
         up = puzzle.up()
         down = puzzle.down()
 
-        for p in [down,up,right,left]:
+        for p in [down,up,right,left]:     
             if tuple(p) not in visited:
                 pq.put((misplacedTiles(p, final), Puzzle(p,depth=puzzle.depth +1)))
 
@@ -189,7 +189,7 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
 
     if(not(solvability(root) == solvability(final))):
         return "There is no path between the final configuration and the initial configuration."
-
+    
     pq = PriorityQueue()
     pq.put((0 + misplacedTiles(root, final), Puzzle(root)))            # adicionar a configuracao atual à fila, com a prioridade inicial
     visited = set()                                                    # criar uma lista com apenas as configuracoes visitadas
@@ -218,12 +218,13 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
                 nodes.append(puzzle)
 
     raise Exception("Puzzle cannot be solved")
+    
 
 def aStar_manhattan(root: list[int], final: list[int]) -> Puzzle:
-
+    
     if(not(solvability(root) == solvability(final))):
         return "There is no path between the final configuration and the initial configuration."
-
+    
     pq = PriorityQueue()
     pq.put((0 + manhattanDistance(root, final), Puzzle(root)))              # adicionar a configuracao atual à fila, com a prioridade inicial
     visited = set()                                                         # criar uma lista com apenas as configuracoes visitadas
