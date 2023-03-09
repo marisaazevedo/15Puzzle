@@ -1,13 +1,13 @@
+from solvability import solvability
 from auxFunctions import Puzzle
 from collections import deque
 from queue import PriorityQueue
-import heapq
 import sys
 
 def misplacedTiles(puzzle, final):
     count = 0
     for i in range(16):
-        if puzzle[i] != final[i]: # and puzzle[i] != 0
+        if puzzle[i] != final[i]:       # and puzzle[i] != 0
             count += 1
     return count
 
@@ -21,6 +21,10 @@ def manhattanDistance(puzzle, final):
     return distance
 
 def dfs(root: list[int], final: list[int]) -> Puzzle:
+
+    if(not(solvability(root) == solvability(final))):
+        return "There is no path between the final configuration and the initial configuration."
+    
     stack = deque()                         # criar uma pilha
     stack.append(Puzzle(root))              # adicionar a configuracao atual à pilha
     visited = set()                         # criar uma lista com apenas as configuracoes visitadas
@@ -50,6 +54,10 @@ def dfs(root: list[int], final: list[int]) -> Puzzle:
     raise Exception("Puzzle cannot be solved")
 
 def bfs(root: list[int], final: list[int]):
+
+    if(not(solvability(root) == solvability(final))):
+        return "There is no path between the final configuration and the initial configuration."
+    
     queue = deque()                             # criar uma fila
     queue.append(Puzzle(root))                  # adicionar a configuracao atual à fila
     visited = set()                             # criar uma lista com apenas as configuracoes visitadas
@@ -72,7 +80,7 @@ def bfs(root: list[int], final: list[int]):
         up = puzzle.up()
         down = puzzle.down()
 
-        for p in [left,right,up,down]:
+        for p in [right,up,down,left]:
             if tuple(p) not in visited:
                 queue.append(Puzzle(p, depth = puzzle.depth + 1))
                 mem += 1
@@ -80,6 +88,10 @@ def bfs(root: list[int], final: list[int]):
     raise Exception("Puzzle cannot be solved")    
 
 def idfs(root: list[int], final: list[int]) -> Puzzle:
+
+    if(not(solvability(root) == solvability(final))):
+        return "There is no path between the final configuration and the initial configuration."
+    
     max_depth = 0
     while True:
         stack = deque()                             # criar uma pilha
@@ -88,7 +100,7 @@ def idfs(root: list[int], final: list[int]) -> Puzzle:
 
         while len(stack):
             puzzle = stack.pop()                    # atribuir à variável puzzle o último elemento da pilha e retira-o da pilha
-            print(puzzle.array, len(visited))
+            #print(puzzle.array, len(visited))
 
             if tuple(puzzle.array) in visited:      # verificar se configuracao atual já foi visitada
                 continue
@@ -113,15 +125,21 @@ def idfs(root: list[int], final: list[int]) -> Puzzle:
     raise Exception("Puzzle cannot be solved")
 
 def greedy_manhattan(root: list[int], final: list[int]) -> Puzzle:
+
+    if(not(solvability(root) == solvability(final))):
+        return "There is no path between the final configuration and the initial configuration."
+    
     visited = set()
     q = PriorityQueue()
     q.put(Puzzle(root), manhattanDistance(root, final))
 
     while not q.empty():
         puzzle = q.get()
+
         if puzzle.array == final:
             return puzzle.depth
         visited.add(tuple(puzzle.array))
+
         left = puzzle.left()
         right = puzzle.right()
         up = puzzle.up()
@@ -134,24 +152,27 @@ def greedy_manhattan(root: list[int], final: list[int]) -> Puzzle:
     raise Exception("Puzzle cannot be solved")
 
 def greedy_misplaced(root: list[int], final: list[int]) -> Puzzle:
-    h = misplacedTiles(root, final)  # calcula a heurística inicial, ou seja, o numero de pecas fora do lugar de acordo com a configuração final
-    pq = PriorityQueue()                        # cria uma fila de prioridade vazia
-    pq.put((h,Puzzle(root)))      # adiciona a configuração inicial à fila com a heurística calculada
 
-    visited = set()                     # cria uma lista com apenas as configurações visitadas
-    nodes = deque()                     # cria 
+    if(not(solvability(root) == solvability(final))):
+        return "There is no path between the final configuration and the initial configuration."
+    
+    h = misplacedTiles(root, final)             # calcula a heurística inicial, ou seja, o numero de pecas fora do lugar de acordo com a configuração final
+    pq = PriorityQueue()                        # cria uma fila de prioridade vazia
+    pq.put((h,Puzzle(root)))                    # adiciona a configuração inicial à fila com a heurística calculada
+    visited = set()                             # cria uma lista com apenas as configurações visitadas
+    nodes = deque()                             # cria 
 
     while not pq.empty():
-        _, puzzle = pq.get()   # extrai a configuração com menor heurística da fila
+        _, puzzle = pq.get()                    # extrai a configuração com menor heurística da fila
         nodes.append(puzzle)
 
-        if tuple(puzzle.array) in visited:  # verifica se a configuração atual já foi visitada
+        if tuple(puzzle.array) in visited:      # verifica se a configuração atual já foi visitada
             continue
         visited.add(tuple(puzzle.array))
 
-        if puzzle.array == final:           # verifica se a configuração atual é igual à configuração final
+        if puzzle.array == final:               # verifica se a configuração atual é igual à configuração final
             print(len(nodes))
-            return puzzle.depth             # retorna o número de passos para chegar da configuração inicial à final
+            return puzzle.depth                 # retorna o número de passos para chegar da configuração inicial à final
         
         left = puzzle.left()
         right = puzzle.right()
@@ -165,21 +186,25 @@ def greedy_misplaced(root: list[int], final: list[int]) -> Puzzle:
     raise Exception("Puzzle cannot be solved")
 
 def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
+
+    if(not(solvability(root) == solvability(final))):
+        return "There is no path between the final configuration and the initial configuration."
+    
     pq = PriorityQueue()
-    pq.put((0 + misplacedTiles(root, final), Puzzle(root)))  # adicionar a configuracao atual à fila, com a prioridade inicial
-    visited = set()  # criar uma lista com apenas as configuracoes visitadas
+    pq.put((0 + misplacedTiles(root, final), Puzzle(root)))            # adicionar a configuracao atual à fila, com a prioridade inicial
+    visited = set()                                                    # criar uma lista com apenas as configuracoes visitadas
     nodes = deque()
 
     while not pq.empty():
-        _, puzzle = pq.get()  # obter o próximo estado na fila
+        _, puzzle = pq.get()                                           # obter o próximo estado na fila
 
-        if tuple(puzzle.array) in visited:  # verificar se a configuração atual já foi visitada
+        if tuple(puzzle.array) in visited:                             # verificar se a configuração atual já foi visitada
             continue
         visited.add(tuple(puzzle.array))
 
-        if puzzle.array == final:  # verificar se a configuração atual é igual à configuração final
+        if puzzle.array == final:                                      # verificar se a configuração atual é igual à configuração final
             print(len(nodes))
-            return puzzle.depth  # retorna o números passos para chegar da configuracao inicial à final
+            return puzzle.depth                                        # retorna o números passos para chegar da configuracao inicial à final
 
         left = puzzle.left()
         right = puzzle.right()
@@ -196,21 +221,25 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
     
 
 def aStar_manhattan(root: list[int], final: list[int]) -> Puzzle:
+    
+    if(not(solvability(root) == solvability(final))):
+        return "There is no path between the final configuration and the initial configuration."
+    
     pq = PriorityQueue()
-    pq.put((0 + manhattanDistance(root, final), Puzzle(root)))  # adicionar a configuracao atual à fila, com a prioridade inicial
-    visited = set()  # criar uma lista com apenas as configuracoes visitadas
+    pq.put((0 + manhattanDistance(root, final), Puzzle(root)))              # adicionar a configuracao atual à fila, com a prioridade inicial
+    visited = set()                                                         # criar uma lista com apenas as configuracoes visitadas
     nodes = deque()
 
     while not pq.empty():
-        _, puzzle = pq.get()  # obter o próximo estado na fila
+        _, puzzle = pq.get()                                                # obter o próximo estado na fila
 
-        if tuple(puzzle.array) in visited:  # verificar se a configuração atual já foi visitada
+        if tuple(puzzle.array) in visited:                                  # verificar se a configuração atual já foi visitada
             continue
         visited.add(tuple(puzzle.array))
 
-        if puzzle.array == final:  # verificar se a configuração atual é igual à configuração final
+        if puzzle.array == final:                                           # verificar se a configuração atual é igual à configuração final
             print(len(nodes))
-            return puzzle.depth  # retorna o números passos para chegar da configuracao inicial à final
+            return puzzle.depth                                             # retorna o números passos para chegar da configuracao inicial à final
 
         left = puzzle.left()
         right = puzzle.right()
