@@ -219,7 +219,6 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
 
     raise Exception("Puzzle cannot be solved")
     
-
 def aStar_manhattan(root: list[int], final: list[int]) -> Puzzle:
     
     if(not(solvability(root) == solvability(final))):
