@@ -9,6 +9,7 @@ import time
 
 def dfs(root: list[int], final: list[int]) -> Puzzle:
     start = time.time()
+
     if(not(solvability(root) == solvability(final))):
         print("There is no path between the final configuration and the initial configuration.")
         return 0
@@ -22,7 +23,7 @@ def dfs(root: list[int], final: list[int]) -> Puzzle:
     stack.append(Puzzle(root))              # adicionar a configuracao atual à pilha
     visited = set()                         # criar uma lista com apenas as configuracoes visitadas
     nodes = deque()
-
+    mem = 0
     while len(stack):
         puzzle = stack.pop()                # atribuir à variável puzzle o último elemento da pilha e retira-o da pilha
         nodes.append(puzzle)
@@ -35,6 +36,7 @@ def dfs(root: list[int], final: list[int]) -> Puzzle:
             end = time.time()
             print("Depth First Search: %d steps" %puzzle.depth)
             print("time = %f segundos" %(end - start))
+            print("memory = %d" %mem)
             return 0
 
         left = puzzle.left()
@@ -43,6 +45,7 @@ def dfs(root: list[int], final: list[int]) -> Puzzle:
         down = puzzle.down()
 
         for p in [down,up,right,left]:
+            mem +=1
             if tuple(p) not in visited:
                 stack.append(Puzzle(p, depth = puzzle.depth + 1))
 
@@ -85,9 +88,9 @@ def bfs(root: list[int], final: list[int]):
         down = puzzle.down()
 
         for p in [right,up,down,left]:
+            mem += 1
             if tuple(p) not in visited:
                 queue.append(Puzzle(p, depth = puzzle.depth + 1))
-                mem += 1
 
     raise Exception("Puzzle cannot be solved")
 
@@ -108,6 +111,7 @@ def idfs(root: list[int], final: list[int]) -> Puzzle:
         stack = deque()                             # criar uma pilha
         stack.append(Puzzle(root))                  # adicionar a configuracao atual à pilha
         visited = set()                             # criar uma lista com apenas as configuracoes visitadas
+        mem = 0
 
         while len(stack):
             puzzle = stack.pop()                    # atribuir à variável puzzle o último elemento da pilha e retira-o da pilha
@@ -121,6 +125,7 @@ def idfs(root: list[int], final: list[int]) -> Puzzle:
                 end = time.time()
                 print("Depth First Search: %d passos" %puzzle.depth)
                 print("time = %f segundos" %(end - start))
+                print("memory = %d" %mem)
                 return 0
 
             if puzzle.depth < max_depth:
@@ -130,6 +135,7 @@ def idfs(root: list[int], final: list[int]) -> Puzzle:
                 down = puzzle.down()
 
                 for p in [down,up,right,left]:
+                    mem += 1
                     if tuple(p) not in visited:
                         stack.append(Puzzle(p, depth = puzzle.depth + 1))
         max_depth += 1
@@ -153,7 +159,7 @@ def greedy_manhattan(root: list[int], final: list[int]) -> Puzzle:
     visited = set()
     q = PriorityQueue()
     q.put(Puzzle(root), manhattanDistance(root, final))
-
+    mem = 0
     while not q.empty():
         puzzle = q.get()
 
@@ -161,6 +167,7 @@ def greedy_manhattan(root: list[int], final: list[int]) -> Puzzle:
             end = time.time()
             print("Greedy Manhattan: %d steps" %puzzle.depth)
             print("time = %f segundos" %(end - start))
+            print("memory = %d" %mem)
             return 0
         visited.add(tuple(puzzle.array))
 
@@ -170,6 +177,7 @@ def greedy_manhattan(root: list[int], final: list[int]) -> Puzzle:
         down = puzzle.down()
 
         for p in [down,up,right,left]:
+            mem += 1
             if tuple(p) not in visited:
                 q.put(Puzzle(p, puzzle.depth + 1), (manhattanDistance(p, final)))
 
@@ -192,6 +200,7 @@ def greedy_misplaced(root: list[int], final: list[int]) -> Puzzle:
     pq.put((h,Puzzle(root)))                    # adiciona a configuração inicial à fila com a heurística calculada
     visited = set()                             # cria uma lista com apenas as configurações visitadas
     nodes = deque()                             # cria
+    mem = 0
 
     while not pq.empty():
         _, puzzle = pq.get()                    # extrai a configuração com menor heurística da fila
@@ -205,6 +214,7 @@ def greedy_misplaced(root: list[int], final: list[int]) -> Puzzle:
             end = time.time()
             print("Greedy Misplaced: %d steps" %puzzle.depth)
             print("time = %f segundos" %(end - start))
+            print("memory = %d" %mem)
             return 0
 
         left = puzzle.left()
@@ -213,6 +223,7 @@ def greedy_misplaced(root: list[int], final: list[int]) -> Puzzle:
         down = puzzle.down()
 
         for p in [down,up,right,left]:
+            mem += 1
             if tuple(p) not in visited:
                 pq.put((misplacedTiles(p, final), Puzzle(p,depth=puzzle.depth +1)))
 
@@ -234,6 +245,7 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
     pq.put((0 + misplacedTiles(root, final), Puzzle(root)))            # adicionar a configuracao atual à fila, com a prioridade inicial
     visited = set()                                                    # criar uma lista com apenas as configuracoes visitadas
     nodes = deque()
+    mem = 0
 
     while not pq.empty():
         _, puzzle = pq.get()                                           # obter o próximo estado na fila
@@ -246,6 +258,7 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
             end = time.time()
             print("A* Misplaced: %d steps" %puzzle.depth)
             print("time = %f segundos" %(end - start))
+            print("memory = %d" %mem)
             return 0
 
         left = puzzle.left()
@@ -254,6 +267,7 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
         down = puzzle.down()
 
         for p in [down, up, right, left]:
+            mem += 1
             if tuple(p) not in visited:
                 priority = puzzle.depth + 1 + misplacedTiles(p, final)
                 pq.put((priority, Puzzle(p, depth=puzzle.depth + 1)))
@@ -278,6 +292,7 @@ def aStar_manhattan(root: list[int], final: list[int]) -> Puzzle:
     pq.put((0 + manhattanDistance(root, final), Puzzle(root)))              # adicionar a configuracao atual à fila, com a prioridade inicial
     visited = set()                                                         # criar uma lista com apenas as configuracoes visitadas
     nodes = deque()
+    mem = 0
 
     while not pq.empty():
         _, puzzle = pq.get()                                                # obter o próximo estado na fila
@@ -290,6 +305,7 @@ def aStar_manhattan(root: list[int], final: list[int]) -> Puzzle:
             end = time.time()
             print("A* Manhattan: %d steps" %puzzle.depth)
             print("time = %f segundos" %(end - start))
+            print("memory = %d" %mem)
             return 0
 
         left = puzzle.left()
@@ -298,6 +314,7 @@ def aStar_manhattan(root: list[int], final: list[int]) -> Puzzle:
         down = puzzle.down()
 
         for p in [down, up, right, left]:
+            mem += 1
             if tuple(p) not in visited:
                 priority = puzzle.depth + 1 + manhattanDistance(p, final)
                 pq.put((priority, Puzzle(p, depth=puzzle.depth + 1)))

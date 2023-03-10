@@ -1,7 +1,7 @@
 import copy
 
 class Puzzle:
-    def __init__(self, array, depth = 0):
+    def __init__(self,array, depth = 0):
         self.array = array
         self.depth = depth
         self.blank = self.findBlankSpace()
@@ -16,29 +16,41 @@ class Puzzle:
         return i
 
     def left(self):
+
         move = copy.deepcopy(self.array)
+
         if self.blank % 4 != 0:
             move[self.blank] = move[self.blank - 1]
             move[self.blank - 1] = 0
+
         return move
 
     def right(self):
+
         move = copy.deepcopy(self.array)
+
         if self.blank % 4 != 3:
             move[self.blank] = move[self.blank + 1]
             move[self.blank + 1] = 0
+
         return move
 
     def up(self):
+
         move = copy.deepcopy(self.array)
+
         if self.blank > 3:
             move[self.blank] = move[self.blank - 4]
             move[self.blank - 4] = 0
+
         return move
 
     def down(self):
+
         move = copy.deepcopy(self.array)
+        
         if self.blank < 12:
             move[self.blank] = move[self.blank + 4]
             move[self.blank + 4] = 0
+
         return move

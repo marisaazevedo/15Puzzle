@@ -2,7 +2,6 @@ from functions import dfs, bfs, idfs, greedy_misplaced,  aStar_manhattan, aStar_
 import sys
 
 def main(method):
-
     initial = list(map(int, input().split()))
     final = list(map(int, input().split()))
 
