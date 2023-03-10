@@ -9,7 +9,7 @@ def manhattanDistance(puzzle, final):
 
 def misplacedTiles(puzzle, final):
     count = 0
-    for i in range(16):
+    for i in range(len(puzzle)):
         if puzzle[i] != final[i]:
             count += 1
     return count

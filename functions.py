@@ -15,9 +15,9 @@ def dfs(root: list[int], final: list[int]) -> Puzzle:
         return 0
 
     print("Initial Configuration:")
-    print(board(root))
+    board(root)
     print("Final Configuration:")
-    print(board(final))
+    board(final)
 
     stack = deque()                         # criar uma pilha
     stack.append(Puzzle(root))              # adicionar a configuracao atual à pilha
@@ -58,9 +58,9 @@ def bfs(root: list[int], final: list[int]):
         return 0
 
     print("Initial Configuration:")
-    print(board(root))
+    board(root)
     print("Final Configuration:")
-    print(board(final))
+    board(final)
 
     queue = deque()                             # criar uma fila
     queue.append(Puzzle(root))                  # adicionar a configuracao atual à fila
@@ -102,9 +102,9 @@ def idfs(root: list[int], final: list[int]) -> Puzzle:
         return 0
 
     print("Initial Configuration:")
-    print(board(root))
+    board(root)
     print("Final Configuration:")
-    print(board(final))
+    board(final)
 
     max_depth = 0
     while True:
@@ -147,9 +147,9 @@ def idfs(root: list[int], final: list[int]) -> Puzzle:
 def greedy_manhattan(root: list[int], final: list[int]) -> Puzzle:
 
     print("Initial Configuration:")
-    print(board(root))
+    board(root)
     print("Final Configuration:")
-    print(board(final))
+    board(final)
 
     start = time.time()
 
@@ -192,9 +192,9 @@ def greedy_misplaced(root: list[int], final: list[int]) -> Puzzle:
         return 0
 
     print("Initial Configuration:")
-    print(board(root))
+    board(root)
     print("Final Configuration:")
-    print(board(final))
+    board(final)
 
     h = misplacedTiles(root, final)             # calcula a heurística inicial, ou seja, o numero de pecas fora do lugar de acordo com a configuração final
     pq = PriorityQueue()                        # cria uma fila de prioridade vazia
@@ -238,9 +238,9 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
         return 0
 
     print("Initial Configuration:")
-    print(board(root))
+    board(root)
     print("Final Configuration:")
-    print(board(final))
+    board(final)
 
     pq = PriorityQueue()
     pq.put((0 + misplacedTiles(root, final), Puzzle(root)))            # adicionar a configuracao atual à fila, com a prioridade inicial
@@ -285,9 +285,9 @@ def aStar_manhattan(root: list[int], final: list[int]) -> Puzzle:
         return 0
 
     print("Initial Configuration:")
-    print(board(root))
+    board(root)
     print("Final Configuration:")
-    print(board(final))
+    board(final)
 
     pq = PriorityQueue()
     pq.put((0 + manhattanDistance(root, final), Puzzle(root)))              # adicionar a configuracao atual à fila, com a prioridade inicial
