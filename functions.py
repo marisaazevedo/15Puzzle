@@ -145,28 +145,29 @@ def idfs(root: list[int], final: list[int]) -> Puzzle:
     raise Exception("Puzzle cannot be solved")
 
 def greedy_manhattan(root: list[int], final: list[int]) -> Puzzle:
-    start = time.time()
-
-    if(not(solvability(root) == solvability(final))):
-        print("There is no path between the final configuration and the initial configuration.")
-        return 0
 
     print("Initial Configuration:")
     print(board(root))
     print("Final Configuration:")
     print(board(final))
 
+    start = time.time()
+
+    if(not(solvability(root) == solvability(final))):
+        print("There is no path between the final configuration and the initial configuration.")
+        return 0
+
     visited = set()
     q = PriorityQueue()
-    q.put(Puzzle(root), manhattanDistance(root, final))
+    q.put((manhattanDistance(root, final),Puzzle(root)))
     mem = 0
     while not q.empty():
-        puzzle = q.get()
+        _, puzzle = q.get()
 
         if puzzle.array == final:
             end = time.time()
             print("Greedy Manhattan: %d steps" %puzzle.depth)
-            print("time = %f seconds" %(end - start))
+            print("time = %f segundos" %(end - start))
             print("memory = %d" %mem)
             return 0
         visited.add(tuple(puzzle.array))
@@ -179,7 +180,7 @@ def greedy_manhattan(root: list[int], final: list[int]) -> Puzzle:
         for p in [down,up,right,left]:
             mem += 1
             if tuple(p) not in visited:
-                q.put(Puzzle(p, puzzle.depth + 1), (manhattanDistance(p, final)))
+                q.put((manhattanDistance(p, final), Puzzle(p, puzzle.depth + 1)))
 
     raise Exception("Puzzle cannot be solved")
 
