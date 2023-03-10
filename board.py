@@ -1,4 +1,4 @@
-def puzzle(t):
+def board(t):
     count = 1
     linha = "|"
     print(" ____ ____ ____ ____ ")
@@ -14,3 +14,4 @@ def puzzle(t):
             count = 0
             linha = "|"
         count += 1
+    return ""
