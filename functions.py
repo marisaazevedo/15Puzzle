@@ -77,7 +77,7 @@ def bfs(root: list[int], final: list[int]):
 
         if puzzle.array == final:               # verificar se a configuração atual é igual à configuracao final
             end = time.time()
-            print("Depth First Search: %d steps" %puzzle.depth)
+            print("Breadth First Search: %d steps" %puzzle.depth)
             print("time = %f segundos" %(end - start))
             print("memory = %d" %mem)
             return 0
@@ -123,7 +123,7 @@ def idfs(root: list[int], final: list[int]) -> Puzzle:
 
             if puzzle.array == final:               # verificar se a configuração atual é igual à configuracao final
                 end = time.time()
-                print("Depth First Search: %d passos" %puzzle.depth)
+                print("Iterative Deepening Depth First Search: %d passos" %puzzle.depth)
                 print("time = %f segundos" %(end - start))
                 print("memory = %d" %mem)
                 return 0
