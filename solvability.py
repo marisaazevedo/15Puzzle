@@ -12,4 +12,5 @@ def solvability(a):
             blankRow = line
         if((i + 1) % 4 == 0):
             line -= 1
+
     return (inv % 2 == 0) == (blankRow % 2 == 1)
