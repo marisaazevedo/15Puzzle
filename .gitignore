@@ -1,9 +1,11 @@
-.idea
 .vscode
-.DS_Store
 Icon?
 /shelf/
 /workspace.xml
+
+# file: ~/.gitignore_global
+.DS_Store
+.idea
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
