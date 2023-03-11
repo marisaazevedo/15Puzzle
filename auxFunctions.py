@@ -22,14 +22,14 @@ class Puzzle:
         move = copy.deepcopy(self.array)
         backtrack = copy.deepcopy(self.parent)
 
-        if(backtrack is None ):
-            backtrack = ['Left']
-        else:
-            backtrack.append('Left')
-
         if self.blank % 4 != 0:
             move[self.blank] = move[self.blank - 1]
             move[self.blank - 1] = 0
+            if(backtrack is None ):
+                backtrack = ['Left']
+            else:
+                backtrack.append('Left')
+    
         tab = Puzzle(move,depth=self.depth +1, parent= backtrack)
         
         return tab
@@ -39,14 +39,14 @@ class Puzzle:
         move = copy.deepcopy(self.array)
         backtrack = copy.deepcopy(self.parent)
 
-        if(backtrack is None ):
-            backtrack = ['Rigth']
-        else:
-            backtrack.append('Rigth')
-
         if self.blank % 4 != 3:
             move[self.blank] = move[self.blank + 1]
             move[self.blank + 1] = 0
+            if(backtrack is None ):
+                backtrack = ['Rigth']
+            else:
+                backtrack.append('Rigth')
+        
         tab = Puzzle(move,depth=self.depth +1, parent= backtrack)
 
         return tab
@@ -56,14 +56,14 @@ class Puzzle:
         move = copy.deepcopy(self.array)
         backtrack = copy.deepcopy(self.parent)
 
-        if(backtrack is None ):
-            backtrack = ['Up']
-        else:
-            backtrack.append('Up')
-
         if self.blank > 3:
             move[self.blank] = move[self.blank - 4]
             move[self.blank - 4] = 0
+            if(backtrack is None ):
+                backtrack = ['Up']
+            else:
+                backtrack.append('Up')
+
         tab = Puzzle(move,depth=self.depth +1, parent= backtrack)
 
         return tab
@@ -73,14 +73,14 @@ class Puzzle:
         move = copy.deepcopy(self.array)
         backtrack = copy.deepcopy(self.parent)
 
-        if(backtrack is None ):
-            backtrack = ['Down']
-        else:
-            backtrack.append('Down')
-        
         if self.blank < 12:
             move[self.blank] = move[self.blank + 4]
             move[self.blank + 4] = 0
+            if(backtrack is None ):
+                backtrack = ['Down']
+            else:
+                backtrack.append('Down')
+        
         tab = Puzzle(move,depth=self.depth +1, parent= backtrack)
 
         return tab
