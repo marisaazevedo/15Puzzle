@@ -9,6 +9,7 @@ import time
 import copy
 
 def dfs(root: list[int], final: list[int]) -> Puzzle:
+
     start = time.time()
 
     if solvability(root) != solvability(final):
