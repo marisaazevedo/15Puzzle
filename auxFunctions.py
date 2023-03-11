@@ -20,7 +20,7 @@ class Puzzle:
     def left(self):
 
         move = copy.deepcopy(self.array) # copia da configuração do pai
-        backtrack = copy.deepcopy(self.parent) # copia dos movimentos do pai
+        backtrack = copy.deepcopy(self.parent) # copia dos movimentos do pai e depois é adicionado o movimento efetuado
 
         if self.blank % 4 != 0:
             move[self.blank] = move[self.blank - 1]
@@ -30,7 +30,7 @@ class Puzzle:
             else:
                 backtrack.append('Left')
     
-        tab = Puzzle(move,depth=self.depth +1, parent= backtrack)
+        tab = Puzzle(move,depth=self.depth +1, parent= backtrack) #cria um puzzle resultante do movimento efetuado e com o array dos movimentos feitos até ao momento
         
         return tab
 
