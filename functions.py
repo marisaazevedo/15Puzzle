@@ -15,10 +15,10 @@ def dfs(root: list[int], final: list[int]) -> Puzzle:
         print("There is no path between the initial configuration and the final configuration.")
         return 0
 
-    #print("Initial Configuration:")
-    #board(root)
-    #print("Final Configuration:")
-    #board(final)
+    print("Initial Configuration:")
+    board(root)
+    print("Final Configuration:")
+    board(final)
 
     stack = deque()                         # criar uma pilha
     stack.append(Puzzle(root))              # adicionar a configuracao atual à pilha
@@ -58,10 +58,10 @@ def bfs(root: list[int], final: list[int]):
         print("There is no path between the initial configuration and the final configuration.")
         return 0
 
-    #print("Initial Configuration:")
-    #board(root)
-    #print("Final Configuration:")
-    #board(final)
+    print("Initial Configuration:")
+    board(root)
+    print("Final Configuration:")
+    board(final)
 
     queue = deque()                             # criar uma fila
     queue.append(Puzzle(root))                  # adicionar a configuracao atual à fila
@@ -101,10 +101,10 @@ def idfs(root: list[int], final: list[int]) -> Puzzle:
         print("There is no path between the initial configuration and the final configuration.")
         return 0
 
-    #print("Initial Configuration:")
-    #board(root)
-    #print("Final Configuration:")
-    #board(final)
+    print("Initial Configuration:")
+    board(root)
+    print("Final Configuration:")
+    board(final)
 
     max_depth = 0
 
@@ -147,10 +147,10 @@ def idfs(root: list[int], final: list[int]) -> Puzzle:
 
 def greedy_manhattan(root: list[int], final: list[int]) -> Puzzle:
 
-    #print("Initial Configuration:")
-    #board(root)
-    #print("Final Configuration:")
-    #board(final)
+    print("Initial Configuration:")
+    board(root)
+    print("Final Configuration:")
+    board(final)
 
     start = time.time()
 
@@ -195,10 +195,10 @@ def greedy_misplaced(root: list[int], final: list[int]) -> Puzzle:
         print("There is no path between the initial configuration and the final configuration.")
         return 0
 
-    #print("Initial Configuration:")
-    #board(root)
-    #print("Final Configuration:")
-    #board(final)
+    print("Initial Configuration:")
+    board(root)
+    print("Final Configuration:")
+    board(final)
 
     h = misplacedTiles(root, final)             # calcula a heurística inicial, ou seja, o numero de pecas fora do lugar de acordo com a configuração final
     pq = PriorityQueue()                        # cria uma fila de prioridade vazia
@@ -243,10 +243,10 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
         print("There is no path between the initial configuration and the final configuration.")
         return 0
 
-    #print("Initial Configuration:")
-    #board(root)
-    #print("Final Configuration:")
-    #board(final)
+    print("Initial Configuration:")
+    board(root)
+    print("Final Configuration:")
+    board(final)
 
     pq = PriorityQueue()
     pq.put((0 + misplacedTiles(root, final), Puzzle(root)))            # adicionar a configuracao atual à fila, com a prioridade inicial
@@ -290,10 +290,10 @@ def aStar_manhattan(root: list[int], final: list[int]) -> Puzzle:
         print("There is no path between the initial configuration and the final configuration.")
         return 0
 
-    #print("Initial Configuration:")
-    #board(root)
-    #print("Final Configuration:")
-    #board(final)
+    print("Initial Configuration:")
+    board(root)
+    print("Final Configuration:")
+    board(final)
 
     pq = PriorityQueue()
     pq.put((0 + manhattanDistance(root, final), Puzzle(root)))              # adicionar a configuracao atual à fila, com a prioridade inicial
