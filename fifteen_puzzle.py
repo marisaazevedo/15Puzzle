@@ -30,11 +30,6 @@ def main():
 
     else:
         print("No strategy found")
-
+    
 main()
     #sys.argv[1]
-    # configurações dadas em formato de tabuleiro
-    # print("Initial Configuration:")
-    # print(puzzle(initial))
-    # print("Final Configuration:")
-    # print(puzzle(final))

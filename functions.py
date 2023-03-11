@@ -6,6 +6,7 @@ from collections import deque
 from queue import PriorityQueue
 import sys
 import time
+import copy
 
 def dfs(root: list[int], final: list[int]) -> Puzzle:
     start = time.time()
@@ -44,9 +45,9 @@ def dfs(root: list[int], final: list[int]) -> Puzzle:
         down = puzzle.down()
 
         for p in [down,up,right,left]:
-            mem +=1
-            if tuple(p) not in visited:
-                stack.append(Puzzle(p, depth = puzzle.depth + 1))
+            mem += 1
+            if tuple(p.array) not in visited:
+                stack.append(p)
 
     raise Exception("Puzzle cannot be solved")
 
@@ -181,6 +182,8 @@ def greedy_manhattan(root: list[int], final: list[int]) -> Puzzle:
         for p in [right,up,down,left]:
             mem += 1
             if tuple(p.array) not in visited:
+                a_cost = copy.deepcopy(puzzle.cost)
+                p.cost = a_cost + manhattanDistance(p.array, final)
                 q.put((manhattanDistance(p.array, final),p))
 
     raise Exception("Puzzle cannot be solved")
@@ -199,7 +202,7 @@ def greedy_misplaced(root: list[int], final: list[int]) -> Puzzle:
 
     h = misplacedTiles(root, final)             # calcula a heurística inicial, ou seja, o numero de pecas fora do lugar de acordo com a configuração final
     pq = PriorityQueue()                        # cria uma fila de prioridade vazia
-    pq.put((h,Puzzle(root)))                    # adiciona a configuração inicial à fila com a heurística calculada
+    pq.put(h,Puzzle(root))                    # adiciona a configuração inicial à fila com a heurística calculada
     visited = set()                             # cria uma lista com apenas as configurações visitadas
     nodes = deque()                             # cria
     mem = 0
@@ -227,6 +230,8 @@ def greedy_misplaced(root: list[int], final: list[int]) -> Puzzle:
         for p in [down,up,right,left]:
             mem += 1
             if tuple(p.array) not in visited:
+                a_cost = copy.deepcopy(puzzle.cost)
+                p.cost = a_cost + misplacedTiles(p.array, final)
                 pq.put((misplacedTiles(p.array, final),p))
 
     raise Exception("Puzzle cannot be solved")
@@ -271,6 +276,8 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
             mem += 1
             if tuple(p.array) not in visited:
                 priority = puzzle.depth + 1 + misplacedTiles(p.array, final)
+                a_cost = copy.deepcopy(puzzle.cost)
+                p.cost = a_cost + priority
                 pq.put((priority, p))
 
     raise Exception("Puzzle cannot be solved")
@@ -305,7 +312,6 @@ def aStar_manhattan(root: list[int], final: list[int]) -> Puzzle:
             print("A* Manhattan: %d steps" %puzzle.depth)
             print("time = %f seconds" %(end - start))
             print("memory = %d" %mem)
-            print(puzzle.cost)
             return 0
 
         left = puzzle.left()
@@ -316,9 +322,11 @@ def aStar_manhattan(root: list[int], final: list[int]) -> Puzzle:
         for p in [down, up, right, left]:
             mem += 1
             if tuple(p.array) not in visited:
-                priority = puzzle.depth + 1 + manhattanDistance(p.array, final)
-                #a_cost = copy.deepcopy(puzzle.cost)
-                #p.cost = a_cost + priority
+                priority = puzzle.depth + 1 + manhattanDistance(p.array, final) 
+                # puzzle.depth + 1 -> custo de sair de uma posicao e ir para o seu descendente
+                # manhattanDistance(p.array, final) -> custo que falta para chegar ao final
+                a_cost = copy.deepcopy(puzzle.cost)
+                p.cost = a_cost + priority
                 pq.put((priority, p))
 
     raise Exception("Puzzle cannot be solved")
