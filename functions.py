@@ -182,6 +182,7 @@ def greedy_manhattan(root: list[int], final: list[int]) -> Puzzle:
             print("Greedy Manhattan: %d steps" % puzzle.depth)
             print("time = %f segundos" % (end - start))
             print("memory = %d" % mem)
+            print("cost = %d" % puzzle.cost)            
             return 0
         visited.add(tuple(puzzle.array))
 
@@ -195,8 +196,7 @@ def greedy_manhattan(root: list[int], final: list[int]) -> Puzzle:
                 continue
             mem += 1
             if tuple(p.array) not in visited:
-                a_cost = copy.deepcopy(puzzle.cost)
-                p.cost = a_cost + manhattanDistance(p.array, final)
+                p.cost = puzzle.cost + manhattanDistance(p.array, final)
                 q.put((manhattanDistance(p.array, final),p))
 
     raise Exception("Puzzle cannot be solved")
@@ -234,6 +234,7 @@ def greedy_misplaced(root: list[int], final: list[int]) -> Puzzle:
             print("Greedy Misplaced: %d steps" % puzzle.depth)
             print("time = %f seconds" % (end - start))
             print("memory = %d" % mem)
+            print("cost = %d" % puzzle.cost)
             return 0
 
         left = puzzle.left()
@@ -246,8 +247,7 @@ def greedy_misplaced(root: list[int], final: list[int]) -> Puzzle:
                 continue
             mem += 1
             if tuple(p.array) not in visited:
-                a_cost = copy.deepcopy(puzzle.cost)
-                p.cost = a_cost + misplacedTiles(p.array, final)
+                p.cost = puzzle.cost + misplacedTiles(p.array, final)
                 pq.put((misplacedTiles(p.array, final),p))
 
     raise Exception("Puzzle cannot be solved")
@@ -282,6 +282,7 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
             print("A* Misplaced: %d steps" % puzzle.depth)
             print("time = %f seconds" % (end - start))
             print("memory = %d" % mem)
+            print("cost = %d" % puzzle.cost)            
             return 0
 
         left = puzzle.left()
@@ -295,8 +296,7 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
             mem += 1
             if tuple(p.array) not in visited:
                 priority = puzzle.depth + misplacedTiles(p.array, final)
-                a_cost = copy.deepcopy(puzzle.cost)
-                p.cost = a_cost + priority
+                p.cost = puzzle.cost + priority
                 pq.put((priority, p))
 
     raise Exception("Puzzle cannot be solved")
