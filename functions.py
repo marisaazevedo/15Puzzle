@@ -34,9 +34,9 @@ def dfs(root: list[int], final: list[int]) -> Puzzle:
 
         if puzzle.array == final:           # verificar se a configuração atual é igual à configuracao final
             end = time.time()
-            print("Depth First Search: %d steps" %puzzle.depth)
-            print("time = %f seconds" %(end - start))
-            print("memory = %d" %mem)
+            print("Depth First Search: %d steps" % puzzle.depth)
+            print("time = %f seconds" % (end - start))
+            print("memory = %d" % mem)
             return 0
 
         left = puzzle.left()
@@ -77,9 +77,9 @@ def bfs(root: list[int], final: list[int]):
 
         if puzzle.array == final:               # verificar se a configuração atual é igual à configuracao final
             end = time.time()
-            print("Breadth First Search: %d steps" %puzzle.depth)
-            print("time = %f seconds" %(end - start))
-            print("memory = %d" %mem)
+            print("Breadth First Search: %d steps" % puzzle.depth)
+            print("time = %f seconds" % (end - start))
+            print("memory = %d" % mem)
             return 0
 
         left = puzzle.left()
@@ -123,9 +123,9 @@ def idfs(root: list[int], final: list[int]) -> Puzzle:
 
             if puzzle.array == final:               # verificar se a configuração atual é igual à configuracao final
                 end = time.time()
-                print("Iterative Deepening Depth First Search: %d passos" %puzzle.depth)
-                print("time = %f seconds" %(end - start))
-                print("memory = %d" %mem)
+                print("Iterative Deepening Depth First Search: %d passos" % puzzle.depth)
+                print("time = %f seconds" % (end - start))
+                print("memory = %d" % mem)
                 return 0
 
             if puzzle.depth < max_depth:
@@ -168,9 +168,9 @@ def greedy_manhattan(root: list[int], final: list[int]) -> Puzzle:
 
         if puzzle.array == final:
             end = time.time()
-            print("Greedy Manhattan: %d steps" %puzzle.depth)
-            print("time = %f segundos" %(end - start))
-            print("memory = %d" %mem)
+            print("Greedy Manhattan: %d steps" % puzzle.depth)
+            print("time = %f segundos" % (end - start))
+            print("memory = %d" % mem)
             return 0
         visited.add(tuple(puzzle.array))
 
@@ -217,9 +217,9 @@ def greedy_misplaced(root: list[int], final: list[int]) -> Puzzle:
 
         if puzzle.array == final:               # verifica se a configuração atual é igual à configuração final
             end = time.time()
-            print("Greedy Misplaced: %d steps" %puzzle.depth)
-            print("time = %f seconds" %(end - start))
-            print("memory = %d" %mem)
+            print("Greedy Misplaced: %d steps" % puzzle.depth)
+            print("time = %f seconds" % (end - start))
+            print("memory = %d" % mem)
             return 0
 
         left = puzzle.left()
@@ -262,9 +262,9 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
 
         if puzzle.array == final:                                      # verificar se a configuração atual é igual à configuração final
             end = time.time()
-            print("A* Misplaced: %d steps" %puzzle.depth)
-            print("time = %f seconds" %(end - start))
-            print("memory = %d" %mem)
+            print("A* Misplaced: %d steps" % puzzle.depth)
+            print("time = %f seconds" % (end - start))
+            print("memory = %d" % mem)
             return 0
 
         left = puzzle.left()
