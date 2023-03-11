@@ -3,7 +3,7 @@ import copy
 class Puzzle:
     def __init__(self,array, depth = 0, parent= None , cost= 0):
         self.array = array
-        self.parent = parent
+        self.parent = parent #array com os movimentos
         self.cost = cost
         self.depth = depth
         self.blank = self.findBlankSpace()
@@ -19,8 +19,8 @@ class Puzzle:
 
     def left(self):
 
-        move = copy.deepcopy(self.array)
-        backtrack = copy.deepcopy(self.parent)
+        move = copy.deepcopy(self.array) # copia da configuração do pai
+        backtrack = copy.deepcopy(self.parent) # copia dos movimentos do pai
 
         if self.blank % 4 != 0:
             move[self.blank] = move[self.blank - 1]

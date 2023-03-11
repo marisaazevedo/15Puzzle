@@ -115,7 +115,6 @@ def idfs(root: list[int], final: list[int]) -> Puzzle:
 
         while len(stack):
             puzzle = stack.pop()                    # atribuir à variável puzzle o último elemento da pilha e retira-o da pilha
-            #print(puzzle.array, len(visited))
 
             if tuple(puzzle.array) in visited:      # verificar se configuracao atual já foi visitada
                 continue
@@ -162,6 +161,7 @@ def greedy_manhattan(root: list[int], final: list[int]) -> Puzzle:
     q = PriorityQueue()
     q.put((manhattanDistance(root, final),Puzzle(root)))
     mem = 0
+
     while not q.empty():
         _, puzzle = q.get()
 
