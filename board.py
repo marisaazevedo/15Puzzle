@@ -1,5 +1,7 @@
 def board(t):
+
     linha = "|"
+
     print(" ---- ---- ---- ---- ")
 
     for i in range(16):
