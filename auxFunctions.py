@@ -12,9 +12,12 @@ class Puzzle:
         return self.array < other.array
 
     def findBlankSpace(self):
+
         i = 0
+
         while self.array[i] != 0:
             i += 1
+
         return i
 
     def left(self):
@@ -29,9 +32,9 @@ class Puzzle:
                 backtrack = ['Left']
             else:
                 backtrack.append('Left')
-    
+
         tab = Puzzle(move, depth = self.depth + 1, parent = backtrack) #cria um puzzle resultante do movimento efetuado e com o array dos movimentos feitos até ao momento
-        
+
         return tab
 
     def right(self):
@@ -46,7 +49,7 @@ class Puzzle:
                 backtrack = ['Rigth']
             else:
                 backtrack.append('Rigth')
-        
+
         tab = Puzzle(move, depth = self.depth + 1, parent = backtrack)
 
         return tab
@@ -80,7 +83,7 @@ class Puzzle:
                 backtrack = ['Down']
             else:
                 backtrack.append('Down')
-        
+
         tab = Puzzle(move, depth = self.depth + 1, parent = backtrack)
 
         return tab
