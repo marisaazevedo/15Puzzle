@@ -32,10 +32,10 @@ class Puzzle:
                 backtrack = ['Left']
             else:
                 backtrack.append('Left')
-
-        tab = Puzzle(move, depth = self.depth + 1, parent = backtrack) #cria um puzzle resultante do movimento efetuado e com o array dos movimentos feitos até ao momento
-
-        return tab
+            tab = Puzzle(move, depth = self.depth + 1, parent = backtrack)
+            return tab
+        else:
+            return None
 
     def right(self):
 
@@ -49,10 +49,10 @@ class Puzzle:
                 backtrack = ['Rigth']
             else:
                 backtrack.append('Rigth')
-
-        tab = Puzzle(move, depth = self.depth + 1, parent = backtrack)
-
-        return tab
+            tab = Puzzle(move, depth = self.depth + 1, parent = backtrack)
+            return tab
+        else:
+            return None
 
     def up(self):
 
@@ -66,10 +66,10 @@ class Puzzle:
                 backtrack = ['Up']
             else:
                 backtrack.append('Up')
-
-        tab = Puzzle(move, depth = self.depth + 1, parent = backtrack)
-
-        return tab
+            tab = Puzzle(move, depth = self.depth + 1, parent = backtrack)
+            return tab
+        else:
+            return None
 
     def down(self):
 
@@ -83,7 +83,7 @@ class Puzzle:
                 backtrack = ['Down']
             else:
                 backtrack.append('Down')
-
-        tab = Puzzle(move, depth = self.depth + 1, parent = backtrack)
-
-        return tab
+            tab = Puzzle(move, depth = self.depth + 1, parent = backtrack)
+            return tab
+        else:
+            return None

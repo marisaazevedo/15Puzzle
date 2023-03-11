@@ -45,6 +45,8 @@ def dfs(root: list[int], final: list[int]) -> Puzzle:
         down = puzzle.down()
 
         for p in [down,up,right,left]:
+            if p is None:
+                continue
             mem += 1
             if tuple(p.array) not in visited:
                 stack.append(p)
@@ -88,6 +90,8 @@ def bfs(root: list[int], final: list[int]):
         down = puzzle.down()
 
         for p in [right,up,down,left]:
+            if p is None:
+                continue
             mem += 1
             if tuple(p.array) not in visited:
                 queue.append(p)
@@ -135,6 +139,8 @@ def idfs(root: list[int], final: list[int]) -> Puzzle:
                 down = puzzle.down()
 
                 for p in [right,up,down,left]:
+                    if p is None:
+                        continue
                     mem += 1
                     if tuple(p.array) not in visited:
                         stack.append(p)
@@ -180,6 +186,8 @@ def greedy_manhattan(root: list[int], final: list[int]) -> Puzzle:
         down = puzzle.down()
 
         for p in [right,up,down,left]:
+            if p is None:
+                continue
             mem += 1
             if tuple(p.array) not in visited:
                 a_cost = copy.deepcopy(puzzle.cost)
@@ -228,6 +236,8 @@ def greedy_misplaced(root: list[int], final: list[int]) -> Puzzle:
         down = puzzle.down()
 
         for p in [down,up,right,left]:
+            if p is None:
+                continue
             mem += 1
             if tuple(p.array) not in visited:
                 a_cost = copy.deepcopy(puzzle.cost)
@@ -249,7 +259,7 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
     board(final)
 
     pq = PriorityQueue()
-    pq.put((0 + misplacedTiles(root, final), Puzzle(root)))            # adicionar a configuracao atual à fila, com a prioridade inicial
+    pq.put((misplacedTiles(root, final), Puzzle(root)))            # adicionar a configuracao atual à fila, com a prioridade inicial
     visited = set()                                                    # criar uma lista com apenas as configuracoes visitadas
     mem = 0
 
@@ -273,9 +283,11 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
         down = puzzle.down()
 
         for p in [down, up, right, left]:
+            if p is None:
+                continue
             mem += 1
             if tuple(p.array) not in visited:
-                priority = puzzle.depth + 1 + misplacedTiles(p.array, final)
+                priority = puzzle.depth + misplacedTiles(p.array, final)
                 a_cost = copy.deepcopy(puzzle.cost)
                 p.cost = a_cost + priority
                 pq.put((priority, p))
@@ -296,7 +308,7 @@ def aStar_manhattan(root: list[int], final: list[int]) -> Puzzle:
     board(final)
 
     pq = PriorityQueue()
-    pq.put((0 + manhattanDistance(root, final), Puzzle(root)))              # adicionar a configuracao atual à fila, com a prioridade inicial
+    pq.put((manhattanDistance(root, final), Puzzle(root)))              # adicionar a configuracao atual à fila, com a prioridade inicial
     visited = set()                                                         # criar uma lista com apenas as configuracoes visitadas
     mem = 0
 
@@ -321,9 +333,13 @@ def aStar_manhattan(root: list[int], final: list[int]) -> Puzzle:
         down = puzzle.down()
 
         for p in [down, up, right, left]:
+            if p is None:
+                continue
             mem += 1
+            if p is None:
+                continue
             if tuple(p.array) not in visited:
-                priority = puzzle.depth + 1 + manhattanDistance(p.array, final)
+                priority = puzzle.depth + manhattanDistance(p.array, final)
                 # puzzle.depth + 1 -> custo de sair de uma posicao e ir para o seu descendente
                 # manhattanDistance(p.array, final) -> custo que falta para chegar ao final
                 p.cost = puzzle.cost + priority
