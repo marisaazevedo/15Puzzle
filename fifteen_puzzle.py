@@ -1,7 +1,8 @@
 from functions import dfs, bfs, idfs, greedy_misplaced,  aStar_manhattan, aStar_misplaced ,greedy_manhattan
 import sys
 
-def main(method):
+def main():
+    method = str(input())
     initial = list(map(int, input().split()))
     final = list(map(int, input().split()))
 
@@ -29,8 +30,8 @@ def main(method):
     else:
         print("No strategy found")
 
-main(sys.argv[1])
-
+main()
+#sys.argv[1]
     # configurações dadas em formato de tabuleiro
     # print("Initial Configuration:")
     # print(puzzle(initial))

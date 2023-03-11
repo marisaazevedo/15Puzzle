@@ -22,11 +22,10 @@ def dfs(root: list[int], final: list[int]) -> Puzzle:
     stack = deque()                         # criar uma pilha
     stack.append(Puzzle(root))              # adicionar a configuracao atual à pilha
     visited = set()                         # criar uma lista com apenas as configuracoes visitadas
-    nodes = deque()
     mem = 0
+
     while len(stack):
         puzzle = stack.pop()                # atribuir à variável puzzle o último elemento da pilha e retira-o da pilha
-        nodes.append(puzzle)
 
         if tuple(puzzle.array) in visited:  # verificar se configuracao atual já foi visitada
             continue
@@ -53,6 +52,7 @@ def dfs(root: list[int], final: list[int]) -> Puzzle:
 
 def bfs(root: list[int], final: list[int]):
     start = time.time()
+
     if(not(solvability(root) == solvability(final))):
         print("There is no path between the final configuration and the initial configuration.")
         return 0
@@ -69,7 +69,6 @@ def bfs(root: list[int], final: list[int]):
 
     while len(queue):
         puzzle = queue.popleft()                # atribuir à variável puzzle o último elemento da pilha
-        #print(puzzle.array, len(visited))
 
         if tuple(puzzle.array) in visited:      # verificar se configuracao atual já foi visitada
             continue
@@ -89,8 +88,8 @@ def bfs(root: list[int], final: list[int]):
 
         for p in [right,up,down,left]:
             mem += 1
-            if tuple(p) not in visited:
-                queue.append(Puzzle(p, depth = puzzle.depth + 1))
+            if tuple(p.array) not in visited:
+                queue.append(p)
 
     raise Exception("Puzzle cannot be solved")
 
@@ -107,6 +106,7 @@ def idfs(root: list[int], final: list[int]) -> Puzzle:
     board(final)
 
     max_depth = 0
+
     while True:
         stack = deque()                             # criar uma pilha
         stack.append(Puzzle(root))                  # adicionar a configuracao atual à pilha
@@ -134,10 +134,11 @@ def idfs(root: list[int], final: list[int]) -> Puzzle:
                 up = puzzle.up()
                 down = puzzle.down()
 
-                for p in [down,up,right,left]:
+                for p in [right,up,down,left]:
                     mem += 1
-                    if tuple(p) not in visited:
-                        stack.append(Puzzle(p, depth = puzzle.depth + 1))
+                    if tuple(p.array) not in visited:
+                        stack.append(p)
+
         max_depth += 1
         if max_depth > sys.maxsize:                 # numero arbitrario para limitar a profundidade
             break
@@ -177,10 +178,10 @@ def greedy_manhattan(root: list[int], final: list[int]) -> Puzzle:
         up = puzzle.up()
         down = puzzle.down()
 
-        for p in [down,up,right,left]:
+        for p in [right,up,down,left]:
             mem += 1
-            if tuple(p) not in visited:
-                q.put((manhattanDistance(p, final), Puzzle(p, puzzle.depth + 1)))
+            if tuple(p.array) not in visited:
+                q.put((manhattanDistance(p.array, final),p))
 
     raise Exception("Puzzle cannot be solved")
 
@@ -221,12 +222,12 @@ def greedy_misplaced(root: list[int], final: list[int]) -> Puzzle:
         left = puzzle.left()
         right = puzzle.right()
         up = puzzle.up()
-        down = puzzle.down()
+        down = puzzle.down()  
 
         for p in [down,up,right,left]:
             mem += 1
-            if tuple(p) not in visited:
-                pq.put((misplacedTiles(p, final), Puzzle(p,depth=puzzle.depth +1)))
+            if tuple(p.array) not in visited:
+                pq.put((misplacedTiles(p.array, final),p))
 
     raise Exception("Puzzle cannot be solved")
 
@@ -245,7 +246,6 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
     pq = PriorityQueue()
     pq.put((0 + misplacedTiles(root, final), Puzzle(root)))            # adicionar a configuracao atual à fila, com a prioridade inicial
     visited = set()                                                    # criar uma lista com apenas as configuracoes visitadas
-    nodes = deque()
     mem = 0
 
     while not pq.empty():
@@ -269,10 +269,9 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
 
         for p in [down, up, right, left]:
             mem += 1
-            if tuple(p) not in visited:
-                priority = puzzle.depth + 1 + misplacedTiles(p, final)
-                pq.put((priority, Puzzle(p, depth=puzzle.depth + 1)))
-                nodes.append(puzzle)
+            if tuple(p.array) not in visited:
+                priority = puzzle.depth + 1 + misplacedTiles(p.array, final)
+                pq.put((priority, p))
 
     raise Exception("Puzzle cannot be solved")
 
@@ -292,7 +291,6 @@ def aStar_manhattan(root: list[int], final: list[int]) -> Puzzle:
     pq = PriorityQueue()
     pq.put((0 + manhattanDistance(root, final), Puzzle(root)))              # adicionar a configuracao atual à fila, com a prioridade inicial
     visited = set()                                                         # criar uma lista com apenas as configuracoes visitadas
-    nodes = deque()
     mem = 0
 
     while not pq.empty():
@@ -307,6 +305,7 @@ def aStar_manhattan(root: list[int], final: list[int]) -> Puzzle:
             print("A* Manhattan: %d steps" %puzzle.depth)
             print("time = %f seconds" %(end - start))
             print("memory = %d" %mem)
+            print(puzzle.cost)
             return 0
 
         left = puzzle.left()
@@ -316,9 +315,10 @@ def aStar_manhattan(root: list[int], final: list[int]) -> Puzzle:
 
         for p in [down, up, right, left]:
             mem += 1
-            if tuple(p) not in visited:
-                priority = puzzle.depth + 1 + manhattanDistance(p, final)
-                pq.put((priority, Puzzle(p, depth=puzzle.depth + 1)))
-                nodes.append(puzzle)
+            if tuple(p.array) not in visited:
+                priority = puzzle.depth + 1 + manhattanDistance(p.array, final)
+                #a_cost = copy.deepcopy(puzzle.cost)
+                #p.cost = a_cost + priority
+                pq.put((priority, p))
 
     raise Exception("Puzzle cannot be solved")
