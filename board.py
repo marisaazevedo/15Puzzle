@@ -10,3 +10,4 @@ def board(t):
             print(linha)
             print(" ---- ---- ---- ---- ")
             linha = "|"
+    print()
