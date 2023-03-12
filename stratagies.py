@@ -255,9 +255,10 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
     board(root)
     print("Final Configuration:")
     board(final)
-    inicial = Puzzle(root)
+
+    initial = Puzzle(root)
     pq = PriorityQueue()
-    pq.put((misplacedTiles(root, final), inicial))            # adicionar a configuracao atual à fila, com a prioridade inicial
+    pq.put((misplacedTiles(root, final), initial))            # adicionar a configuracao atual à fila, com a prioridade inicial
     visited = set()                                                    # criar uma lista com apenas as configuracoes visitadas
     mem = 0
 
@@ -285,7 +286,7 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
         for p in [down, up, right, left]:
             mem += 1
             if tuple(p.array) not in visited:
-                priority = misplacedTiles(puzzle.array,p.array) + misplacedTiles(p.array, final)
+                priority = misplacedTiles(initial.array,p.array) + misplacedTiles(p.array, final)
                 p.cost = puzzle.cost + priority
                 pq.put((priority, p))
 
@@ -304,9 +305,9 @@ def aStar_manhattan(root: list[int], final: list[int]) -> Puzzle:
     print("Final Configuration:")
     board(final)
 
-    inicial = Puzzle(root)
+    initial = Puzzle(root)
     pq = PriorityQueue()
-    pq.put((manhattanDistance(root, final), inicial))             # adicionar a configuracao atual à fila, com a prioridade inicial
+    pq.put((manhattanDistance(root, final), initial))             # adicionar a configuracao atual à fila, com a prioridade inicial
     visited = set()                                                         # criar uma lista com apenas as configuracoes visitadas
     mem = 0
 
@@ -335,8 +336,8 @@ def aStar_manhattan(root: list[int], final: list[int]) -> Puzzle:
         for p in [down, up, right, left]:
             mem += 1
             if tuple(p.array) not in visited:
-                priority = manhattanDistance(puzzle.array,p.array) + manhattanDistance(p.array, final)
-                # manhattanDistance(puzzle.array,p.array) -> custo de sair da posicao anterior para a posicao atual
+                priority = manhattanDistance(initial.array,p.array) + manhattanDistance(p.array, final)
+                # manhattanDistance(initial.array,p.array) -> custo de sair da posicao inicial para a posicao atual
                 # manhattanDistance(p.array, final) -> custo que falta para chegar ao final
                 p.cost = puzzle.cost + priority
                 pq.put((priority, p))
