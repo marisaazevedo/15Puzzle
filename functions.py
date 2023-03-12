@@ -295,7 +295,7 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
                 continue
             mem += 1
             if tuple(p.array) not in visited:
-                priority = puzzle.depth + misplacedTiles(p.array, final)
+                priority = p.depth + misplacedTiles(p.array, final)
                 p.cost = puzzle.cost + priority
                 pq.put((priority, p))
 
@@ -347,7 +347,7 @@ def aStar_manhattan(root: list[int], final: list[int]) -> Puzzle:
             if p is None:
                 continue
             if tuple(p.array) not in visited:
-                priority = puzzle.depth + manhattanDistance(p.array, final)
+                priority = p.depth + manhattanDistance(p.array, final)
                 # puzzle.depth + 1 -> custo de sair de uma posicao e ir para o seu descendente
                 # manhattanDistance(p.array, final) -> custo que falta para chegar ao final
                 p.cost = puzzle.cost + priority
