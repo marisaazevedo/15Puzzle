@@ -1,4 +1,4 @@
-from functions import dfs, bfs, idfs, greedy_misplaced, greedy_manhattan, aStar_manhattan, aStar_misplaced
+from stratagies import dfs, bfs, idfs, greedy_misplaced, greedy_manhattan, aStar_manhattan, aStar_misplaced
 import sys
 
 def main(method):
