@@ -1,5 +1,5 @@
 from solvability import solvability
-from auxFunctions import Puzzle
+from puzzle import Puzzle
 from heuristic import misplacedTiles, manhattanDistance
 from board import board
 from collections import deque
@@ -47,8 +47,6 @@ def dfs(root: list[int], final: list[int]) -> Puzzle:
         down = puzzle.down()
 
         for p in [down,up,right,left]:
-            if p is None:
-                continue
             mem += 1
             if tuple(p.array) not in visited:
                 stack.append(p)
@@ -93,8 +91,6 @@ def bfs(root: list[int], final: list[int]):
         down = puzzle.down()
 
         for p in [right,up,down,left]:
-            if p is None:
-                continue
             mem += 1
             if tuple(p.array) not in visited:
                 queue.append(p)
@@ -182,7 +178,7 @@ def greedy_manhattan(root: list[int], final: list[int]) -> Puzzle:
             print("Greedy Manhattan: %d steps" % puzzle.depth)
             print("time = %f segundos" % (end - start))
             print("memory = %d" % mem)
-            print("cost = %d" % puzzle.cost)            
+            print("cost = %d" % puzzle.cost)
             return 0
         visited.add(tuple(puzzle.array))
 
@@ -192,8 +188,6 @@ def greedy_manhattan(root: list[int], final: list[int]) -> Puzzle:
         down = puzzle.down()
 
         for p in [right,up,down,left]:
-            if p is None:
-                continue
             mem += 1
             if tuple(p.array) not in visited:
                 p.cost = puzzle.cost + manhattanDistance(p.array, final)
@@ -243,8 +237,6 @@ def greedy_misplaced(root: list[int], final: list[int]) -> Puzzle:
         down = puzzle.down()
 
         for p in [down,up,right,left]:
-            if p is None:
-                continue
             mem += 1
             if tuple(p.array) not in visited:
                 p.cost = puzzle.cost + misplacedTiles(p.array, final)
@@ -282,7 +274,7 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
             print("A* Misplaced: %d steps" % puzzle.depth)
             print("time = %f seconds" % (end - start))
             print("memory = %d" % mem)
-            print("cost = %d" % puzzle.cost)            
+            print("cost = %d" % puzzle.cost)
             return 0
 
         left = puzzle.left()
@@ -291,8 +283,6 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
         down = puzzle.down()
 
         for p in [down, up, right, left]:
-            if p is None:
-                continue
             mem += 1
             if tuple(p.array) not in visited:
                 priority = misplacedTiles(puzzle.array,p.array) + misplacedTiles(p.array, final)
@@ -319,7 +309,7 @@ def aStar_manhattan(root: list[int], final: list[int]) -> Puzzle:
     pq.put((manhattanDistance(root, final), inicial))             # adicionar a configuracao atual à fila, com a prioridade inicial
     visited = set()                                                         # criar uma lista com apenas as configuracoes visitadas
     mem = 0
-    
+
 
     while not pq.empty():
         _, puzzle = pq.get()                                                # obter o próximo estado na fila
@@ -343,8 +333,6 @@ def aStar_manhattan(root: list[int], final: list[int]) -> Puzzle:
         down = puzzle.down()
 
         for p in [down, up, right, left]:
-            if p is None:
-                continue
             mem += 1
             if tuple(p.array) not in visited:
                 priority = manhattanDistance(puzzle.array,p.array) + manhattanDistance(p.array, final)
