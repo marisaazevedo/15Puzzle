@@ -1,8 +1,7 @@
 from stratagies import dfs, bfs, idfs, greedy_misplaced, greedy_manhattan, aStar_manhattan, aStar_misplaced
 import sys
 
-def main():
-    method = str(input())
+def main(method):
     initial = list(map(int, input().split()))
     final = list(map(int, input().split()))
 
@@ -30,5 +29,4 @@ def main():
     else:
         print("No strategy found")
 
-main()
-#sys.argv[1]
+main(sys.argv[1])
