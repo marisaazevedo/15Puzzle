@@ -263,9 +263,9 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
     board(root)
     print("Final Configuration:")
     board(final)
-
+    inicial = Puzzle(root)
     pq = PriorityQueue()
-    pq.put((misplacedTiles(root, final), Puzzle(root)))            # adicionar a configuracao atual à fila, com a prioridade inicial
+    pq.put((misplacedTiles(root, final), inicial))            # adicionar a configuracao atual à fila, com a prioridade inicial
     visited = set()                                                    # criar uma lista com apenas as configuracoes visitadas
     mem = 0
 
@@ -295,7 +295,7 @@ def aStar_misplaced(root: list[int], final: list[int]) -> Puzzle:
                 continue
             mem += 1
             if tuple(p.array) not in visited:
-                priority = p.depth + misplacedTiles(p.array, final)
+                priority = misplacedTiles(puzzle.array,p.array) + misplacedTiles(p.array, final)
                 p.cost = puzzle.cost + priority
                 pq.put((priority, p))
 
@@ -314,10 +314,12 @@ def aStar_manhattan(root: list[int], final: list[int]) -> Puzzle:
     print("Final Configuration:")
     board(final)
 
+    inicial = Puzzle(root)
     pq = PriorityQueue()
-    pq.put((manhattanDistance(root, final), Puzzle(root)))              # adicionar a configuracao atual à fila, com a prioridade inicial
+    pq.put((manhattanDistance(root, final), inicial))             # adicionar a configuracao atual à fila, com a prioridade inicial
     visited = set()                                                         # criar uma lista com apenas as configuracoes visitadas
     mem = 0
+    
 
     while not pq.empty():
         _, puzzle = pq.get()                                                # obter o próximo estado na fila
@@ -344,11 +346,9 @@ def aStar_manhattan(root: list[int], final: list[int]) -> Puzzle:
             if p is None:
                 continue
             mem += 1
-            if p is None:
-                continue
             if tuple(p.array) not in visited:
-                priority = p.depth + manhattanDistance(p.array, final)
-                # puzzle.depth + 1 -> custo de sair de uma posicao e ir para o seu descendente
+                priority = manhattanDistance(puzzle.array,p.array) + manhattanDistance(p.array, final)
+                # manhattanDistance(puzzle.array,p.array) -> custo de sair da posicao anterior para a posicao atual
                 # manhattanDistance(p.array, final) -> custo que falta para chegar ao final
                 p.cost = puzzle.cost + priority
                 pq.put((priority, p))
