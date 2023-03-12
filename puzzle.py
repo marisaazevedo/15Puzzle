@@ -1,4 +1,3 @@
-from stratagies import dfs, bfs, idfs, greedy_misplaced, greedy_manhattan, aStar_misplaced, aStar_manhattan
 import copy
 
 class Puzzle:
